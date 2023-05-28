@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+*.aux
+*.bbl
+*.log
+*.out
+*.pdf
+*.gz
+*.swp
+*.blg
+samples/
