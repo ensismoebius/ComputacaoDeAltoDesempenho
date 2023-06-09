@@ -40,3 +40,4 @@
 *.swp
 *.blg
 samples/
+code/CMakeLists.txt.user
