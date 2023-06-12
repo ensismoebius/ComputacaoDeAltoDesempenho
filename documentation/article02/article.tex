@@ -1,197 +1,318 @@
 \input{preamble.tex}
 
 \begin{document}
-	\title{A tutorial of Solving the defined integral problem with OpenMp}
+	\title{A brief review of Quantum Mechanics for Computer Scientists}
 	\author{André Furlan - UNESP - Universidade Estadual Paulista "Júlio de Mesquita Filho"}
 	\date{2023-06-01}
 	\maketitle
 	
 	\begin{abstract}
-		The Trapezoid rule algorithm used in this tutorial is \textbf{not} the most fast method to calculate an interval defined integral but is a good example of how to make programs runs quicker by using OpenMp for parallelism. Hopefully it will help the understanding of how this library works and how to use it. All sources can be accessed at \href{https://github.com/ensismoebius/ComputacaoDeAltoDesempenho}{https://github.com/ensismoebius/ComputacaoDeAltoDesempenho}
+		Quantum computers are one of the most promising technologies currently. However, a lack of understanding of its basic concepts may hinder even experienced computer scientists from exploring its possibilities. This document aims to provide a brief review of these concepts to enable those interested in quantum computation to understand and utilize its ideas effectively.
 	\end{abstract}
 	
 	\begin{IEEEkeywords}
-		OpenMp, Paralelism, C++, C, Tutorial
+		quantum mechanics, quantum computation, qubit
 	\end{IEEEkeywords}
 	
 	\section{Introduction}
-	\par In High Performance Computation (HPC) the goal (other than solve a problem) is to use most of the computation power of the machines involved. Most of the time this means use all processors an its cores at maximum, avoiding idle intervals.
-	\par By using the OpenMp \cite{openmp08} libraries it is possible, using \textbf{\#pragma} compiler directives, turn a sequential program into a parallel one. The problem in focus here is the defined interval integral calculation. To solve it the program must calculate the area bellow the plot by summing up the area of several trapezoids \cite{hildebrand1987introduction}. The more trapezoids fitted, the more precise are the values obtained. And it is here that the parallelism enters: By dividing the work of area calculation in lots of threads its possible to diminish the effective time of execution.
-	\section{The trapezoid rule}
-	\par Be $a$ a point that marks the start of a interval in which the calculation must be done and $b$ its end, than an \textbf{approximation} of the integral value is given by equation \ref{eq:firstApproximation}. In figure \ref{fig:trapezoidalruleillustration} the basic idea is illustrated.\newline
+		\par In the same century that classical computers, with their classical bits that can only assume one of two values (0 or 1), emerged, another field of knowledge arose: Quantum Mechanics. This field was developed to explain phenomena in the microscopic domain that could not be adequately described by Newtonian mechanics. As some quantum phenomena, such as entanglement and superposition, exhibit counterintuitive behavior, scientists began exploring the possibility of utilizing these behaviors in computing, leading to the birth of quantum computing.
+		
+	\section{Quantum states}
+		\par In quantum mechanics, a \textbf{state} refers to a mathematical representation that provides information about the properties of a physical system. It encapsulates the essential characteristics and behavior of the system, such as its observable quantities and their possible values.\newline
+		
+		\par The state of a quantum system is described using a formalism called \textbf{state vectors}, which belong to a \textbf{vector space} (more on this in section \ref{sec:vectorspace}) associated with the system. These vectors are often denoted using the "ket" notation (section \ref{sec:ketNotation}), introduced by physicist Paul Dirac, where a state vector is represented as $|\psi\rangle$, pronounced as "ket psi".\newline
+		
+		\par The state vector represents the system's quantum state, encoding both the information about the system's observable quantities and the probabilities of obtaining specific outcomes upon measurement. The state vector can evolve over time according to the laws of quantum mechanics, capturing the dynamics and changes in the system as it interacts with its environment.\newline
+		
+		\par A quantum state can be in a \textbf{superposition}, meaning it is not limited to a single definite value but rather exists as a combination of multiple possible states. This superposition arises due to the fundamental principle of quantum mechanics known as \textbf{superposition principle}, which allows states to be in a coherent linear combination of basis states.\newline
+		
+		\par It is important to note that a state is not a physical object itself, but rather a mathematical representation that provides a comprehensive description of the system's properties.
 	
-	\begin{equation}
-		\int^a_b{f(x) dx} \approx (b-a).\dfrac{1}{2}(f(a)+f(b))
-		\label{eq:firstApproximation}
-	\end{equation}
+	\section{Complex vector space}
+		\label{sec:vectorspace}
+		\par A \textbf{vector space} ($V$) over the complex numbers $\mathbb{C}$ is a mathematical structure that allows for the representation of its elements (vectors) and adheres to the following set of rules:
+		
+		\begin{itemize}
+			\item $\alpha \in \mathbb{C}, \alpha . |V_1\rangle \in V$
+			\item $\vec{0} , \vec{0} + |V_1\rangle = |V_1\rangle$ (null vector)
+			\item $|V_1\rangle + |V_2\rangle = |V_2\rangle + |V_1\rangle$ (commutative)
+			\item $|V_1\rangle \in V, |V_2\rangle \in V \implies |V_1\rangle + |V_2\rangle \in V$
+			\item $|-V_1\rangle; |V_1\rangle + |-V_1\rangle=\vec{0}, |-V_1\rangle=-|V_1\rangle$ 
+			\item $|V_1\rangle + (|V_2\rangle + |V_3\rangle) = (|V_1\rangle + |V_2\rangle) + |V_3\rangle$ (associative)
+			\item $\alpha,\beta \in \mathbb{C}; \alpha (|V_1\rangle + \beta . |V_2\rangle) = \alpha . |V_1\rangle + \alpha . \beta . |V_2\rangle $ (distributive)
+		\end{itemize}
 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\linewidth]{images/Trapezoidal_rule_illustration}
-		\caption[Approximation of an integral]{In pink the approximation(trapezoid area), in blue the actual function curve. $f(a)$ and $f(b)$ are the trapezoid bases and the interval $a, b$ its height. }
-		\label{fig:trapezoidalruleillustration}
-	\end{figure}
+		\par It is important to highlight that when using the "BraKet" notation described in section \ref{sec:DiracNotation}, the \textbf{basis}, which are \textbf{normalized and mutually orthogonal} vectors within the vector space, is used in combination with other parameters to represent a specific state of interest.\newline
+		
+		\par In quantum mechanics these \textbf{basis vectors} are called \textbf{system possible states}.
 	
-	\par The figure \ref{fig:trapezoidalruleillustration} and the equation \ref{eq:firstApproximation} shows a pretty coarse approximation! What if the $[a, b]$ interval get subdivided (partitioned) like in figure \ref{fig:trapezoidalruleillustration2}? Well, then it is possible to get a value closer to the real one!\newline
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\linewidth]{images/Trapezoidal_rule_illustration2}
-		\caption[Enhanced approximation of an integral]{In pink the \textbf{enhanced} approximation(trapezoid area), in blue the actual function curve. $f(a), f(b), f(c), f(d), f(e)$ are the trapezoid bases and the intervals $[a, d],[d,c], [c,e], [e,b]$ its heights. Note that now there are 4 trapezoids i.e. 4 areas that must be calculated. }
-		\label{fig:trapezoidalruleillustration2}
-	\end{figure}
+	\section{Dirac notation}
+		\label{sec:DiracNotation}
+			
+		\par In quantum mechanics, it is crucial to define the \textbf{range} of values that a particle's state can assume. This concept that will be discussed deeply in section \ref{sec:probAmpli} is known as \textbf{probability amplitude} and it employs two notations: the "ket" and the "bra". These notations are commonly referred to as the \textbf{Dirac's "BraKet" notation}.
 
-	\par To obtain the result all areas must be summed up, therefore the equation \ref{eq:firstApproximation} turns into \ref{eq:secondApproximation}. So, as many partitions are made, the more sums are added.\newline
-	
-	\begin{equation}
-		\begin{aligned}
-			\int^a_b{f(x) dx} \approx 
-			&(d-a).\dfrac{1}{2}(f(d)+f(a))+\\
-			&(c-d).\dfrac{1}{2}(f(c)+f(d))+\\
-			&(e-c).\dfrac{1}{2}(f(e)+f(c))+\\
-			&(b-e).\dfrac{1}{2}(f(b)+f(e))
-		\end{aligned}
-		\label{eq:secondApproximation}
-	\end{equation}
+		\subsection{Ket notation}
+			\label{sec:ketNotation}
+			\par The combination of symbols $|$ and $\rangle$ with a value inside is referred to as a "ket." An example is demonstrated in Equation \ref{eq:ketNotationVector}.
+			
+			\begin{equation}
+				|K\rangle = \vec{K} = \{a, b, c, d\}
+				\label{eq:ketNotationVector}
+			\end{equation}
+			
+			\par Where $a, b, c, d \in \mathbb{Q}$ and are components of the vector $K$.\newline
 
-	\par Let $x = [a,b]$ and $n=partitions+1=points$ of $[a,b]$ than it is true to say that $x_0 = a < x_1 < ... < x_{n-1} < x_n = b$. Being the interval between two points $\Delta_{x_k} = x_k - x_{k-1}$ than the equation \ref*{eq:secondApproximation} can be rewrote as the equation \ref{eq:genericApproximation}.\newline
+			\par In order to describe the state of a particle using the \textbf{vector space basis}, the particle's state can be written using the equation \ref{eq:ketNotationGeneric}.
+			
+			\begin{equation}
+				| \psi \rangle = \alpha . | V_1 \rangle + \beta . | V_2 \rangle
+				\label{eq:ketNotationGeneric}
+			\end{equation}
+		
+			\par With $\alpha, \beta$ and $\gamma$ known as \textbf{probability amplitudes}.\newline
+						
+			\par Simply put, the equation \ref{eq:ketNotationGeneric} and its respective plot depicted in figure \ref{fig:diracPlot} can be interpreted as follows: \textit{The state of $\psi$ within the vector space defined by vectors $V_1$ and $V_2$ is a linear combination ($\alpha$ times vector $V_1$ plus $\beta$ times vector $V_2$)}.
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics{images/diracPlot}
+				\caption{Visual representation of Equation \ref{eq:ketNotationGeneric}. Vectors $V_1$ and $V_2$ must be orthogonal and normalized.}
+				\label{fig:diracPlot}
+			\end{figure}
 	
-	\begin{equation}
-		\int^a_b{f(x) dx} \approx \sum_{k=1}^{n} \dfrac{f(x_{k-1})+f(x_k)}{2} . \Delta_{x_k}
-		\label{eq:genericApproximation}
-	\end{equation}
+			\par In quantum mechanics, a state can be represented by different levels depending on the system. For instance, the previous example illustrated a representation of a \textbf{two-level state system}. However, it is important to note that a state can be extended to include one, two, or even multiple levels ($n$).\newline
+			
+			\par To represent multiple-level states, a common approach is to utilize a vector space with a basis that corresponds to the distinct levels of the system. Each level is associated with a specific vector in the vector space.\newline
+			
+			\par For instance, consider a three-level system. We can define a basis as ${|V_0\rangle, |V_1\rangle, |V_2\rangle}$, where $|V_0\rangle$, $|V_1\rangle$, and $|V_2\rangle$ represent the vectors associated with the respective levels.
+			
+			\par In general, a state in a multiple-level system can be expressed as a linear combination of these basis vectors:
+			
+			\begin{equation}
+				|\psi\rangle = \alpha |V_0\rangle + \beta |V_1\rangle + \gamma |V_2\rangle \qquad,
+				\label{eq:multipleLevelState}
+			\end{equation}
+		
+			\par Here, $\alpha$, $\beta$, and $\gamma$ are complex coefficients that determine the \textbf{amplitudes} of the state in each level.\newline
+			
+			\par Being $N=$ the number of levels and $a \in (\alpha, \beta, \gamma, ... , \omega)$ sometimes the equation \ref{eq:multipleLevelState} can be represented as a sum:
+			
+			\begin{equation}
+				|\psi\rangle = \sum_{i=1}^{N} a_i . |V_i\rangle = 
+				\begin{bmatrix}
+					a_{1} \\
+					a_{2} \\
+					\vdots \\
+					a_{n}
+				\end{bmatrix}
+				\label{eq:multipleLevelStateSum}
+			\end{equation}
+		
+			\par Some authors prefers to use $|0\rangle, |1\rangle, |2\rangle, \dots , |n\rangle / n < N$ instead of $|V_0\rangle,|V_1\rangle, \dots, |V_n\rangle / n < N$.\newline
 
-	\par And this is (finally) the idea that will be implemented ahead!
+			\par Note that this representation is nothing more than another way of defining a \textbf{vector} considering a \textbf{vector space basis} already used in linear algebra, as shown in Equation \ref{eq:linearCombination}!\newline
+			
+			\begin{equation}
+				\label{eq:linearCombination}
+				\begin{aligned}
+					|\psi\rangle =
+					\begin{bmatrix}
+						a_{1} \\
+						a_{2} \\
+						\vdots \\
+						a_{n}
+					\end{bmatrix} =
+					a_1 . \begin{bmatrix}
+						1\\
+						0\\
+						\vdots \\
+						0
+					\end{bmatrix}+
+					a_2 . \begin{bmatrix}
+						0\\
+						1\\
+						\vdots \\
+						0
+					\end{bmatrix}+
+					\dots + a_n . \begin{bmatrix}
+						0\\
+						0\\
+						\vdots \\
+						1
+					\end{bmatrix}
+				\end{aligned}
+			\end{equation}
+		
+			\par Remember this basis vectors $
+			\begin{bmatrix}
+				1\\
+				0\\
+				\vdots \\
+				0
+			\end{bmatrix}, 
+			\begin{bmatrix}
+				0\\
+				1\\
+				\vdots \\
+				0
+			\end{bmatrix}, \dots,
+			\begin{bmatrix}
+				0\\
+				0\\
+				\vdots \\
+				1
+			\end{bmatrix}$ are the \textbf{system possible states}!
+		
+		\subsection{Probability amplitude}
+			\label{sec:probAmpli}
+			\par As shown in a previous section, the probability amplitudes represented by the values $[a_1,a_2,a_3, \dots, a_n]$ reside in the complex number set $\mathbb{C}$. In some cases, $a_n$ may have a value in the format $u + vi$, where $u, v \in \mathbb{R}$ and $i = \sqrt{-1}$, indicating a number that is \textbf{not real}. Therefore, in this context, it is not possible to assign a meaningful interpretation to these numbers.\newline
+			
+			\par To address this issue, we need to introduce the concept of the complex conjugate of a number. For a number $z = u + vi$, where $z \in \mathbb{C}$, its conjugate is denoted as $z^*$, where $z^* \in \mathbb{C}$, and it is given by $z^* = u - vi$. In summary, if $z = u + vi$, then $z^* = u - vi$. \newline
+			
+			\par By applying the concept of the complex conjugate, we can see that $z \cdot z^* = (u + vi) \cdot (u - vi) = u^2 + v^2 \in \mathbb{R}$. This resolves the problem, as the product $z \cdot z^*$ is a real number!\newline
+			
+			\par Finally, let \(P(S_i)\) be a function that calculates the probability of the state \(S_i\) occurring. For instance, if \(|\psi\rangle = \alpha |S_0\rangle + \beta |S_1\rangle\), then \(P(S_0)\) and \(P(S_1)\) are defined as shown in equations \ref{eq:state0} and \ref{eq:state1} \textbf{REFERÊNCIA AQUI}.
+			
+			\begin{equation}
+				\label{eq:state0}
+				P(S_0) = \alpha . \alpha^* 
+			\end{equation} 
+			
+			\begin{equation}
+				\label{eq:state1}
+				P(S_1) = \beta . \beta^* 
+			\end{equation}
+
+		\subsection{Bra notation}
+			\label{sec:braNotation}
+		
+			\par When calculating the probability of a specific state, as discussed in section \ref{sec:probAmpli}, a new question arises: \textit{What if there is a need to calculate the total probability of all possible states?} This is where the "bra" notation comes into play!\newline
+			
+			\par As we already know, a vector of all probability amplitudes, denoted as $|\psi\rangle$, is given by equation \ref{eq:multipleLevelStateKet}. So, for these "ket" states, there is an associated "bra" notation defined in equation \ref{eq:multipleLevelStateBra} \textbf{REFERENCIA AQUI}.
+			
+			\begin{equation}
+				|\psi\rangle = \sum_{i=1}^{N} a_i . |V_i\rangle = 
+				\begin{bmatrix}
+					a_{1} \\
+					a_{2} \\
+					\vdots \\
+					a_{n}
+				\end{bmatrix}
+				\label{eq:multipleLevelStateKet}
+			\end{equation}
+			
+			\begin{equation}
+				\langle\psi| = \sum_{j=1}^{N} a_j^* . \langle V_j| = [a_1^*, a_2^*, \dots, a_n^*]
+				\label{eq:multipleLevelStateBra}
+			\end{equation}				
+			
+			\par Considering the equations \ref{eq:multipleLevelStateKet} and \ref{eq:multipleLevelStateBra}, it is now possible, based on what was discussed in section \ref{sec:probAmpli}, to derive a new equation, denoted as \ref{eq:multipleLevelStateBraKet}. This sum corresponds to the overall probability of the system existing in this particular configuration!
+			
+			
+			\begin{equation}
+				\begin{aligned}
+					\langle\psi|\psi\rangle = [a_1^*, a_2^*, \dots, a_n^*] . \begin{bmatrix}
+						a_{1} \\
+						a_{2} \\
+						\vdots \\
+						a_{n}
+					\end{bmatrix} = &\\ 
+					a_1^*.a_1 + a_2^*.a_2 + \dots + a_n^*.a_n = &\\
+					P(S_1) + P(S_2) + \dots + P(S_n) = &\\
+					\sum_{i}^{N} P(S_i)
+				\end{aligned}
+				\label{eq:multipleLevelStateBraKet}
+			\end{equation}
+		
+			\par ----------------------------------------------------------------
+		
+			\par Bra notation allows for the calculation of inner products between vectors. The inner product of a bra vector $\langle \psi |$ and a ket vector $| \phi \rangle$ is denoted as $\langle \psi | \phi \rangle$. The inner product yields a complex number, providing information about the similarity or overlap between the two vectors.\newline
+
+			\par Bra notation also enables the representation of operators in quantum mechanics. An operator can be represented by a matrix, and its action on a vector is given by the product of the operator matrix and the ket vector. For example, the action of an operator $\hat{A}$ on a ket vector $| \psi \rangle$ is represented as $\hat{A} | \psi \rangle$.\newline
+
+			\par By following these principles, multiple-level states can be effectively represented, with the basis vectors and coefficients adjusted to accommodate the specific number of levels present in the system.\newline
+
+
+	\section{Heisenberg principle}
 	
-	\section{Implementation}
-		\par First of all it is necessary to define a function to integrate, the one used here is defined in equation \ref{eq:function} and the integration interval begins in \textbf{0 until 100}. The performance will be tested using \textbf{1, 2, 4 and 8 threads}.  Note that this method supports any function, this one was chosen for example purposes only.\newline
+		\par This idea can be explained in the context of analyzing variable signals. The challenge lies in determining both the frequencies and their corresponding locations within the signal.\newline
+		
+		\par To address this challenge, a tool called the Fourier transformation can be employed. Typically, when analyzing a signal, it is common practice to create a "window," which represents the segment size that will be processed. The largest window encompasses all the values of the signal, while the smallest window contains only one value (in the case of discrete sampling).\newline
+		
+		\par In Figure \ref{fig:noisysignal}, a multi-frequency signal is depicted. Applying the Fourier transformation to the entire signal enables the discovery of all the frequencies present, but it does not provide information about where these frequencies occur within the signal. On the other hand, using a small window allows us to identify the locations of certain high-frequency signal components, but it hinders our ability to determine the locations of lower frequencies, as illustrated in Figure \ref{fig:windowednoisysignal}.\newline
+		
+		\par In short, when it comes to analyzing signals, the size of the window plays a crucial role. A larger window facilitates more accurate frequency measurement but sacrifices the ability to determine their precise locations. Conversely, a smaller window provides better localization but compromises the accuracy of frequency measurements.
+
+	
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\linewidth]{images/noisySignal}
+			\caption[Multi-frequency signal]{Multi-frequency signal. Source: \cite{olama2011design}}
+			\label{fig:noisysignal}
+		\end{figure}
+		
+		
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[width=0.1\linewidth]{images/windowedNoisySignal}
+			\caption[Windowed signal]{Small windowed signal. Adapted from: \cite{olama2011design}}
+			\label{fig:windowednoisysignal}
+		\end{figure}
+
+	
+	\section{Quantum Bit (Qubit)}
+		\par Qubits, unlike classical bits, do not have a defined state. They exist in a \textbf{superposition} of infinite states between 1 and 0 until they are measured, at which point their state collapses to either 1 or 0.
+		
+		\par In quantum mechanics, the state of a qubit can be represented using Dirac notation, as shown in Equation \ref{eq:ketNotation}.
 		
 		\begin{equation}
-			f(x) = \sqrt{100^2 - x^2}
-			\label{eq:function}
-		\end{equation}		
+			| \psi \rangle = \alpha . | 1 \rangle + \beta . | 0 \rangle
+			\label{eq:ketNotation}
+		\end{equation}
 		
-		\par Then, for the impatient ones, here is the complete code that will be discussed:
-		\lstinputlisting[language=C++]{code/integral.cpp}
-			
-	\section{Discussion}
-		\par This section focus only in the OpenMp directives, its assumed that the reader knows a minimum of C++.\newline
+		\par Simply put, Equation \ref{eq:ketNotation} can be interpreted as follows: The state of $\psi$ within the vector space defined by vectors 1 and 2 is a linear combination of $\alpha$ times vector 1 and $\beta$ times vector 0. It is important to note that these vectors must be orthogonal and normalized. A more generic way to write Equation \ref{eq:ketNotation} is shown in Equation \ref{eq:ketNotationGeneric} and visually represented in Figure \ref{fig:diracPlot}.
 		
-		\par The lines 5 to 7 includes OpenMp header files if the build system used detected such library.
-		\begin{lstlisting}[language=C++]
-#ifdef _OPENMP
-	#include <omp.h>
-#endif
-		\end{lstlisting}
-	
-		\par From line 9 to 12, the function to be integrated is defined. Note the \textit{inline} statement: Inlinning functions \textbf{may} avoid the intrinsic overhead of calling a function but, since this it is not a command, the compiler may ignore this request.
-		\begin{lstlisting}[language=C++]
-inline long double f(long double x)
-{
-	return std::sqrt(std::pow(100,2) - std::pow(x,2));
-}
-		\end{lstlisting}
+		\begin{equation}
+			| \psi \rangle = \alpha . | V_1 \rangle + \beta . | V_2 \rangle
+			\label{eq:ketNotationGeneric2}
+		\end{equation}
 		
-		\par Line 22 states that the variable \textit{sum} is shared by all threads all the other variables are not.
-		\begin{lstlisting}[language=C++]
-#pragma default(none) shared(soma)
-		\end{lstlisting}
+		\begin{figure}[h]
+			\centering
+			\includegraphics{images/diracPlot}
+			\caption{Visual representation of Equation \ref{eq:ketNotationGeneric}. Vectors $V_1$ and $V_2$ must be orthogonal and normalized. $\alpha$ and $\beta$ represent the probabilities associated with the state $\psi$.}
+			\label{fig:diracPlot2}
+		\end{figure}
 		
-		\par At the 24 position OpenMp starts a parallel zone: From now on the instructions are replicated in several  threads according to parallelization rules defined in the \textbf{operational system ambient variables} \cite{openmp08SV}. The zones are defined using curling braces (same as blocks in C++).
-		\begin{lstlisting}[language=C++]
-#pragma omp parallel
-		\end{lstlisting}
-	
-		\par The most important part is declared here in line 26. This directive is the heart of the parallelization for this algorithm. For each thread \textit{sum} is initialized to 0 then, after all calculations, the obtained values are summed together. For this directive it have to be possible to known beforehand the number of iterations in execution time i.e. the number of iterations cannot change while the loop are being executed. Also the k variable (used in for loop) must \textbf{not} be modified within the loop otherwise it can be changed like in k++ statement. Since, in this specific case, a summation is need OpenMp have a convenient \textit{reduction} directive that enables it. The \textit{reduction} directive can be used with other types of operations like \textit{subtractions}, \textit{maximums} and \textit{minimums}. 
+		\par When measured, a qubit will collapse to one of the basis states, either 1 or 0, with probabilities given by the magnitudes of $\alpha$ and $\beta$. Note the word \textbf{probability}, in this scope it means that due to \textbf{Heisenberg Principle} is not possible to known exactly the position and velocity of particle at the same time!
 		
-		\begin{lstlisting}[language=C++]
-#pragma omp for reduction(+ : sum)
-		\end{lstlisting}
-	
-		\par Finally, at the line 31, a barrier to the execution of the program is created in order to ensure that all threads has been finished until this point. Now it is possible to do another operations with the outputted sum.  This is optional in this \textbf{specific case} because there is an implicit barrier in \textit{for} directive. It is important to note that \textbf{there is no code} associated with this directive i.e. it just marks a point where all threads must arrive. \textbf{Warning!} All or none of the threads must encounter the barrier otherwise a \textbf{deadlock} happens.
+		\subsection{Qubit capacity}
+			\begin{itemize}
+				\item 1 qubit = 2 bits
+				\item 2 qubits = 4 bits
+				\item 3 qubits = 8 bits (1 byte)
+				\item 4 qubits = 16 bits
+				\item 13 qubits = 8.192 bits (1kb)
+				\item 23 qubits = 8.388.608 bits (1mb)
+				\item 33 qubits = 8.589.934.592 bits (1gb)
+				\item 43 qubits = 8.796.093.022.208 bits (1 terabyte)
+				\item n qubits = $2^n$ bits
+			\end{itemize}
 		
-		\begin{lstlisting}[language=C++]
-#pragma omp barrier
-		\end{lstlisting}
-	
-		\par Among the aforementioned \textbf{operational system ambient variables} one is the most important for the sake of this program: OMP\_NUM\_THREADS. This variable sets the number of threads (an integer) that are going to be used when running the algorithm. If no value is assigned than the maximum of threads supported are used.
+	\section{Quantum Superposition}
+		\par The superposition principle.
 
-	\section{Performance tests}
-		\par The tests were done using an \textit{AMD Ryzen 5 5000 series} processor running an \textit{Gnu/Linux operational system} with \textit{30GB of RAM}.\newline
+	\section{Quantum Entanglement}
+	
+	\section{Quantum operations}
+		\label{sec:quantumOperations}
+				
+		\par The state vector can be subject to \textbf{quantum operations}, such as unitary transformations and measurements. These operations modify the state vector or extract information from it, allowing for the study of the system's properties and the prediction of measurement outcomes.
 		
-		\par The tables bellow shows the results according to the number of threads. 
-		
-		\begin{table}[h]
-			\caption{export OMP\_NUM\_THREADS=1}
-			\begin{center}
-				\begin{tabular}{|l|l|l|l|}
-					\hline
-					Interval $\Delta_{x_k}$  &  Partitions  &  Time taken in sec &  Result \\
-					\hline
-					0.000001  &  100000000  &  0.670965  &  7853.981634 \\
-					\hline
-					0.000010  &  10000000  &  0.067101  &  7853.981633 \\
-					\hline
-					0.000100  &  1000000  &  0.006715  &  7853.981617 \\
-					\hline
-				\end{tabular}
-			\end{center}
-		\end{table}
-		
-		\begin{table}[h]
-			\caption{export OMP\_NUM\_THREADS=2}
-			\begin{center}
-				\begin{tabular}{|l|l|l|l|}
-					\hline
-					Interval $\Delta_{x_k}$  &  Partitions  &  Time taken in sec &  Result \\
-					\hline
-					0.000001  &  100000000  &  0.341421  &  7853.981634 \\
-					\hline
-					0.000010  &  10000000  &  0.033588  &  7853.981633 \\
-					\hline
-					0.000100  &  1000000  &  0.003378  &  7853.981617 \\
-					\hline
-				\end{tabular}
-			\end{center}
-		\end{table}
-		
-		\begin{table}[h]
-			\caption{export OMP\_NUM\_THREADS=4}
-			\begin{center}
-				\begin{tabular}{|l|l|l|l|}
-					\hline
-					Interval $\Delta_{x_k}$  &  Partitions  &  Time taken in sec &  Result \\
-					\hline
-					0.000001  &  100000000  &  0.172951  &  7853.981634 \\
-					\hline
-					0.000010  &  10000000  &  0.016810  &  7853.981633 \\
-					\hline
-					0.000100  &  1000000  &  0.001684  &  7853.981617 \\
-					\hline
-				\end{tabular}
-			\end{center}
-		\end{table}
-			
-		\begin{table}[h]
-			\caption{export OMP\_NUM\_THREADS=8}
-			\begin{center}
-				\begin{tabular}{|l|l|l|l|}
-					\hline
-					Interval $\Delta_{x_k}$  &  Partitions  &  Time taken in sec &  Result \\
-					\hline
-					0.000001  &  100000000  &  0.144975  &  7853.981634 \\
-					\hline
-					0.000010  &  10000000  &  0.014428  &  7853.981633 \\
-					\hline
-					0.000100  &  1000000  &  0.001436  &  7853.981617 \\
-					\hline
-				\end{tabular}
-			\end{center}
-		\end{table}
+	\section{Examples}
 	
 	\section{Conclusion}
-	\par This is just a scratch on the surface of OpenMp please pay a visit to their website to learn more: \href{https://www.openmp.org/}{https://www.openmp.org/}.
-	\par \textit{That is all folks!}
+		\par Quantum mechanics provides a fascinating framework for understanding the behavior of matter and energy at the microscopic level. The concepts of superposition and entanglement, in particular, are crucial for the development of quantum computation. By leveraging these concepts, quantum computers have the potential to solve certain problems much more efficiently than classical computers. By familiarizing ourselves with the basic principles of quantum mechanics, computer scientists can effectively explore and harness the power of quantum computation.
 	
 	\bibliographystyle{plain}
 	\bibliography{references.bib}
