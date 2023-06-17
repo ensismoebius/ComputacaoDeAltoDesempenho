@@ -7,7 +7,7 @@
 	\maketitle
 	
 	\begin{abstract}
-		Quantum computers are one of the most promising technologies currently. However, a lack of understanding of its basic concepts may hinder even experienced computer scientists from exploring its possibilities. This document aims to provide a brief review of these concepts to enable those interested in quantum computation to understand and utilize its ideas effectively.
+		Quantum computers are one of the most promising technologies currently. However, a lack of understanding of its basic concepts may hinder even experienced computer scientists from exploring its possibilities. This document aims to provide a brief review of these concepts to enable those interested in quantum computation to understand and utilize its ideas effectively. For a broader explanation of quantum computing, I recommend the insightful work "Introdução à Computação Quântica" by Wagner Jorcuvich Nunes da Silva (2018) \cite{da2018introduccao}.
 	\end{abstract}
 	
 	\begin{IEEEkeywords}
@@ -49,18 +49,23 @@
 	\section{Dirac notation}
 		\label{sec:DiracNotation}
 			
-		\par In quantum mechanics, it is crucial to define the \textbf{range} of values that a particle's state can assume. This concept that will be discussed deeply in section \ref{sec:probAmpli} is known as \textbf{probability amplitude} and it employs two notations: the "ket" and the "bra". These notations are commonly referred to as the \textbf{Dirac's "BraKet" notation}.
+		\par In quantum mechanics, it is crucial to define the \textbf{range} of values that a particle's state can assume. This concept that will be discussed deeply in section \ref{sec:probAmpli} is known as \textbf{probability amplitude} and it employs two notations: the "ket" and the "bra". These notations are commonly referred to as the \textbf{Dirac's "BraKet" notation} \cite{notacaoDirac}.
 
 		\subsection{Ket notation}
 			\label{sec:ketNotation}
 			\par The combination of symbols $|$ and $\rangle$ with a value inside is referred to as a "ket." An example is demonstrated in Equation \ref{eq:ketNotationVector}.
 			
 			\begin{equation}
-				|K\rangle = \vec{K} = \{a, b, c, d\}
+				|K\rangle = \vec{K} = \begin{bmatrix}
+					a \\
+					b \\
+					c \\
+					d
+				\end{bmatrix}
 				\label{eq:ketNotationVector}
 			\end{equation}
 			
-			\par Where $a, b, c, d \in \mathbb{Q}$ and are components of the vector $K$.\newline
+			\par Where $a, b, c, d \in \mathbb{Q}$ and are components of the \textbf{column vector} $K$.\newline
 
 			\par In order to describe the state of a particle using the \textbf{vector space basis}, the particle's state can be written using the equation \ref{eq:ketNotationGeneric}.
 			
@@ -171,7 +176,7 @@
 			
 			\par By applying the concept of the complex conjugate, we can see that $z \cdot z^* = (u + vi) \cdot (u - vi) = u^2 + v^2 \in \mathbb{R}$. This resolves the problem, as the product $z \cdot z^*$ is a real number!\newline
 			
-			\par Finally, let \(P(S_i)\) be a function that calculates the probability of the state \(S_i\) occurring. For instance, if \(|\psi\rangle = \alpha |S_0\rangle + \beta |S_1\rangle\), then \(P(S_0)\) and \(P(S_1)\) are defined as shown in equations \ref{eq:state0} and \ref{eq:state1} \textbf{REFERÊNCIA AQUI}.
+			\par Finally, let \(P(S_i)\) be a function that calculates the probability of the state \(S_i\) occurring. For instance, if \(|\psi\rangle = \alpha |S_0\rangle + \beta |S_1\rangle\), then \(P(S_0)\) and \(P(S_1)\) are defined as shown in equations \ref{eq:state0} and \ref{eq:state1} \cite{binney2013physics}.
 			
 			\begin{equation}
 				\label{eq:state0}
@@ -185,10 +190,28 @@
 
 		\subsection{Bra notation}
 			\label{sec:braNotation}
+			
+			\par Briefly, given a ket $|\psi\rangle$ (as shown in equation \ref{eq:ket}), its corresponding bra is denoted by the conjugate transpose of $|\psi\rangle$ (equation \ref{eq:bra}).
+			
+			\begin{equation}
+				\label{eq:ket}
+				|\psi\rangle = 
+				\begin{bmatrix}
+					u + vo \\
+					k + ji \\
+					o + li \\
+					d + mi
+				\end{bmatrix} \in \mathbb{C}
+			\end{equation}
+		
+			\begin{equation}
+				\label{eq:bra}
+				\langle\psi| = [u - vo, k - ji, o - li, d - mi]
+			\end{equation}
 		
 			\par When calculating the probability of a specific state, as discussed in section \ref{sec:probAmpli}, a new question arises: \textit{What if there is a need to calculate the total probability of all possible states?} This is where the "bra" notation comes into play!\newline
 			
-			\par As we already know, a vector of all probability amplitudes, denoted as $|\psi\rangle$, is given by equation \ref{eq:multipleLevelStateKet}. So, for these "ket" states, there is an associated "bra" notation defined in equation \ref{eq:multipleLevelStateBra} \textbf{REFERENCIA AQUI}.
+			\par As we already know, a vector of all probability amplitudes, denoted as $|\psi\rangle$, is given by equation \ref{eq:multipleLevelStateKet}. So, for these "ket" states, there is an associated "bra" notation defined in equation \ref{eq:multipleLevelStateBra} \cite{notacaoDirac}
 			
 			\begin{equation}
 				|\psi\rangle = \sum_{i=1}^{N} a_i . |V_i\rangle = 
@@ -219,19 +242,36 @@
 					\end{bmatrix} = &\\ 
 					a_1^*.a_1 + a_2^*.a_2 + \dots + a_n^*.a_n = &\\
 					P(S_1) + P(S_2) + \dots + P(S_n) = &\\
-					\sum_{i}^{N} P(S_i)
+					\sum_{i=1}^{N} P(S_i)
 				\end{aligned}
 				\label{eq:multipleLevelStateBraKet}
 			\end{equation}
 		
-			\par ----------------------------------------------------------------
-		
 			\par Bra notation allows for the calculation of inner products between vectors. The inner product of a bra vector $\langle \psi |$ and a ket vector $| \phi \rangle$ is denoted as $\langle \psi | \phi \rangle$. The inner product yields a complex number, providing information about the similarity or overlap between the two vectors.\newline
-
-			\par Bra notation also enables the representation of operators in quantum mechanics. An operator can be represented by a matrix, and its action on a vector is given by the product of the operator matrix and the ket vector. For example, the action of an operator $\hat{A}$ on a ket vector $| \psi \rangle$ is represented as $\hat{A} | \psi \rangle$.\newline
-
-			\par By following these principles, multiple-level states can be effectively represented, with the basis vectors and coefficients adjusted to accommodate the specific number of levels present in the system.\newline
-
+			
+			\par For instance, given a vector 
+				$|\alpha\rangle= 
+				\begin{bmatrix}
+					1 \\
+					0
+				\end{bmatrix}
+				$
+				 and 
+				 $|\beta\rangle = \begin{bmatrix}
+					0\\
+					1
+				\end{bmatrix}$ 
+				using the "BraKet" operators to represent the inner product, it will end up like in equation \ref{eq:braket}.
+			
+			\begin{equation}
+				\label{eq:braket}
+				\langle \alpha | \beta \rangle = 
+				[1, 0] .
+				\begin{bmatrix}
+					0 \\
+					1
+				\end{bmatrix} = 1.0 + 0.1 = 0
+			\end{equation}
 
 	\section{Heisenberg principle}
 	
@@ -261,59 +301,266 @@
 
 	
 	\section{Quantum Bit (Qubit)}
-		\par Qubits, unlike classical bits, do not have a defined state. They exist in a \textbf{superposition} of infinite states between 1 and 0 until they are measured, at which point their state collapses to either 1 or 0.
-		
-		\par In quantum mechanics, the state of a qubit can be represented using Dirac notation, as shown in Equation \ref{eq:ketNotation}.
+		\par Qubits, unlike classical bits, do not have a defined state and exist in a superposition of states 1 and 0 until they are measured, at which point their state collapses to either 1 or 0 with probabilities given by $|\alpha|^2$ and $|\beta|^2$ respectively, as represented in Equation \ref{eq:qubit} and Figure \ref{fig:qubitplot} \cite{da2018introduccao}.
 		
 		\begin{equation}
-			| \psi \rangle = \alpha . | 1 \rangle + \beta . | 0 \rangle
-			\label{eq:ketNotation}
+			| \psi \rangle = \alpha . | 0 \rangle + \beta . | 1 \rangle = 
+			\alpha . \begin{bmatrix}
+				1 \\
+				0
+			\end{bmatrix} + \beta .	\begin{bmatrix}
+				0 \\
+				1
+			\end{bmatrix} = 
+			\begin{bmatrix}
+				\alpha \\
+				\beta
+			\end{bmatrix}
+			\label{eq:qubit}
 		\end{equation}
-		
-		\par Simply put, Equation \ref{eq:ketNotation} can be interpreted as follows: The state of $\psi$ within the vector space defined by vectors 1 and 2 is a linear combination of $\alpha$ times vector 1 and $\beta$ times vector 0. It is important to note that these vectors must be orthogonal and normalized. A more generic way to write Equation \ref{eq:ketNotation} is shown in Equation \ref{eq:ketNotationGeneric} and visually represented in Figure \ref{fig:diracPlot}.
-		
-		\begin{equation}
-			| \psi \rangle = \alpha . | V_1 \rangle + \beta . | V_2 \rangle
-			\label{eq:ketNotationGeneric2}
-		\end{equation}
-		
+	
+		\par The coefficients $\alpha$ and $\beta$ are complex numbers such that ${|\alpha|}^2 + {|\beta|}^2 = 1$, the vector 
+		$\begin{bmatrix}
+			\alpha \\
+			\beta 
+		\end{bmatrix}$ is the qubit itself and, by convention, $| 1 \rangle = 
+		\begin{bmatrix}
+			0 \\
+			1
+		\end{bmatrix} = 1$ and $| 0 \rangle = 
+		\begin{bmatrix}
+			1 \\
+			0
+		\end{bmatrix} = 0$
+	
 		\begin{figure}[h]
 			\centering
-			\includegraphics{images/diracPlot}
-			\caption{Visual representation of Equation \ref{eq:ketNotationGeneric}. Vectors $V_1$ and $V_2$ must be orthogonal and normalized. $\alpha$ and $\beta$ represent the probabilities associated with the state $\psi$.}
-			\label{fig:diracPlot2}
+			\includegraphics{images/qubitPlot}
+			\caption{Visual representation of Equation \ref{eq:qubit}. Vectors $1$ and $2$ must be orthogonal and normalized. $\alpha$ and $\beta$ represent the probabilities associated with the state $\psi$.}
+			\label{fig:qubitplot}
 		\end{figure}
 		
-		\par When measured, a qubit will collapse to one of the basis states, either 1 or 0, with probabilities given by the magnitudes of $\alpha$ and $\beta$. Note the word \textbf{probability}, in this scope it means that due to \textbf{Heisenberg Principle} is not possible to known exactly the position and velocity of particle at the same time!
+		\par The Equation \ref{eq:qubit} can be interpreted as follows: The \textbf{non-measured} state of $\psi$ within the vector space defined by vectors $| 1 \rangle$ and $| 0 \rangle$ is a linear combination of them  ($\alpha$ times vector $| 0 \rangle$ plus $\beta$ times vector $| 1 \rangle$).\newline
 		
-		\subsection{Qubit capacity}
-			\begin{itemize}
-				\item 1 qubit = 2 bits
-				\item 2 qubits = 4 bits
-				\item 3 qubits = 8 bits (1 byte)
-				\item 4 qubits = 16 bits
-				\item 13 qubits = 8.192 bits (1kb)
-				\item 23 qubits = 8.388.608 bits (1mb)
-				\item 33 qubits = 8.589.934.592 bits (1gb)
-				\item 43 qubits = 8.796.093.022.208 bits (1 terabyte)
-				\item n qubits = $2^n$ bits
-			\end{itemize}
-		
-	\section{Quantum Superposition}
-		\par The superposition principle.
+		\par It's important to note that in Figure \ref{fig:qubitplot} and Equation \ref{eq:qubit}, a quantum state is often in a superposition because $\alpha$ and $\beta$ can take on multiple values along the bases axis. For example, if $\alpha = 1$ and $\beta = 0$, the qubit has a $100\%$ probability of being a 0 and $0\%$ probability of being a 1. Conversely, if $\alpha = \frac{1}{\sqrt{2}}$ and $\beta = \frac{1}{\sqrt{2}}$, there is a $50\%$ probability of being 1 and a $50\%$ of being 0.
+		\newline  
 
-	\section{Quantum Entanglement}
+		\par Qubits have the ability to store and process information differently than classical bits due to superposition. Their capacity, in terms of information storage, is significantly larger compared to classical bits. However, there is a catch: when qubits are measured, they collapse into classical bits. Therefore, currently, it is not possible to take full advantage of the quantum properties for data storage purposes. Furthermore, qubits can store non-binary data, such as $\begin{bmatrix} \dfrac{1}{\sqrt{2}} \\\\ \dfrac{1}{\sqrt{2}} \end{bmatrix}$ or $\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$.\newline
+		
+		\par Another challenge that arises with systems containing many qubits is decoherence. Due to the limitations of current technology, as the number of qubits increases, so does the presence of noise. This leads to a higher likelihood of random collapses and decoherence between the states of qubits.\newline
+		
+		\par The List bellow shows the qubits capacity.
+		
+		\begin{itemize}
+			\label{lst:qubits}
+			\item 1 qubit = 2 bits
+			\item 2 qubits = 4 bits
+			\item 3 qubits = 8 bits (1 byte)
+			\item 4 qubits = 16 bits
+			\item 13 qubits = 8,192 bits (1 kilobyte)
+			\item 23 qubits = 8,388,608 bits (1 megabyte)
+			\item 33 qubits = 8,589,934,592 bits (1 gigabyte)
+			\item 43 qubits = 8,796,093,022,208 bits (1 terabyte)
+			\item n qubits = $2^n$ bits
+		\end{itemize}
+	
 	
 	\section{Quantum operations}
 		\label{sec:quantumOperations}
 				
-		\par The state vector can be subject to \textbf{quantum operations}, such as unitary transformations and measurements. These operations modify the state vector or extract information from it, allowing for the study of the system's properties and the prediction of measurement outcomes.
+		\par The state vector of a quantum system can undergo various quantum operations, including unitary transformations and measurements. These operations enable the modification of the state vector and the extraction of information from it, facilitating the study of system properties and the prediction of measurement outcomes.\newline
 		
-	\section{Examples}
-	
+		\par Quantum operations are implemented using quantum gates, which are represented by unitary matrices. These gates serve as unitary linear transformations that preserve orthogonality, ensuring that the quantum state remains normalized and the probabilities of different outcomes are preserved.\newline
+		
+		\par To preserve the normalization a property must be observed: Being $M$ a matrix and $M^*$ its conjugate transpose and $I$ an indentity matrix, a matrix $M$ is unitary if $M.M^* = I$ \cite{da2018introduccao}.
+		
+		\subsection{Quantum gates}
+		
+			\par As mentioned earlier, quantum gates are represented as matrices, and their number is infinite because the values of the matrix cells can vary across the real numbers ($\mathbb{R}$). Although there is a wide variety of quantum gates and considering $| \psi \rangle = \alpha . | 0 \rangle + \beta . | 1 \rangle$, here are a few examples.\newline
+
+		
+			\par The \textbf{identity gate} in Equation \ref{eq:indentity} alters the qubit state as shown in Equation \ref{eq:indentityApplyed}.
+			\begin{equation}
+				\label{eq:indentity}
+					I : 
+					\begin{bmatrix}
+						1& 0 \\
+						0& 1
+					\end{bmatrix}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:indentityApplyed}
+				I|\psi\rangle = \begin{bmatrix}
+					1& 0 \\
+					0& 1
+				\end{bmatrix} . \begin{bmatrix}
+					\alpha \\
+					\beta
+				\end{bmatrix} = \begin{bmatrix}
+					\alpha \\
+					\beta
+				\end{bmatrix} = |\psi\rangle
+			\end{equation}
+		
+			\par The \textbf{flip gate} in Equation \ref{eq:flip} flips the qubit state as shown in Equation \ref{eq:indentityApplyed}.
+			\begin{equation}
+				\label{eq:flip}
+				X : 
+				\begin{bmatrix}
+					0& 0 \\
+					1& 0
+				\end{bmatrix}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:flipApplyed}
+				X|\psi\rangle = \begin{bmatrix}
+					0& 1 \\
+					1& 0
+				\end{bmatrix} . \begin{bmatrix}
+					\alpha \\
+					\beta
+				\end{bmatrix} = \begin{bmatrix}
+					\beta \\
+					\alpha
+				\end{bmatrix}
+			\end{equation}
+		
+		
+			\par The \textbf{Hadamard gate} in Equation \ref{eq:hadamard} puts the qubit state in to \textbf{superposition} \cite{qcfcs}  with the same probability for the two states \cite{da2018introduccao} as shown in Equation \ref{eq:hadamardApplyed}.
+			\begin{equation}
+				\label{eq:hadamard}
+				H : \dfrac{1}{\sqrt{2}}.
+				\begin{bmatrix}
+					1& 1 \\
+					1& -1
+				\end{bmatrix}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:hadamardApplyed}
+				\begin{aligned}
+					&H|\psi\rangle = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
+						1& 1 \\
+						1& -1
+					\end{bmatrix} . \begin{bmatrix}
+						\alpha \\
+						\beta
+					\end{bmatrix} = \\
+					&\begin{bmatrix}
+						\dfrac{1}{\sqrt{2}} &\dfrac{1}{\sqrt{2}} \\
+						\dfrac{1}{\sqrt{2}} &\dfrac{-1}{\sqrt{2}}
+					\end{bmatrix} .
+					\begin{bmatrix}
+						\alpha \\
+						\beta
+					\end{bmatrix} = 
+					\begin{bmatrix}
+						\alpha . \dfrac{1}{\sqrt{2}} + \beta.\dfrac{1}{\sqrt{2}} \\
+						\alpha . \dfrac{1}{\sqrt{2}} + \beta.\dfrac{-1}{\sqrt{2}}
+					\end{bmatrix} = \\
+					&\begin{bmatrix}
+						\dfrac{1}{\sqrt{2}} . (\alpha + \beta) \\
+						\dfrac{1}{\sqrt{2}} . (\alpha - \beta)
+					\end{bmatrix}
+				\end{aligned}
+			\end{equation}
+		
+			\par To further illustrate this, let's consider a numeric example. We start with a qubit state $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$, which is not in superposition. We can apply the Hadamard gate to put it into superposition. The resulting state is given by Equation \ref{eq:hadamardApplyedNum}.
+			
+			\begin{equation}
+				\label{eq:hadamardApplyedNum}
+				\begin{aligned}
+					&H|\psi\rangle = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
+						1& 1 \\
+						1& -1
+					\end{bmatrix} . \begin{bmatrix}
+						1 \\
+						0
+					\end{bmatrix} = \\
+					&\begin{bmatrix}
+						\dfrac{1}{\sqrt{2}} &\dfrac{1}{\sqrt{2}} \\
+						\dfrac{1}{\sqrt{2}} &\dfrac{-1}{\sqrt{2}}
+					\end{bmatrix} .
+					\begin{bmatrix}
+						1 \\
+						0
+					\end{bmatrix} = 
+					\begin{bmatrix}
+						1 . \dfrac{1}{\sqrt{2}} + 0.\dfrac{1}{\sqrt{2}} \\
+						1 . \dfrac{1}{\sqrt{2}} + 0.\dfrac{-1}{\sqrt{2}}
+					\end{bmatrix} = \\
+					&\begin{bmatrix}
+						\dfrac{1}{\sqrt{2}} . (1 + 0) \\
+						\dfrac{1}{\sqrt{2}} . (1 - 0)
+					\end{bmatrix} = 
+					\begin{bmatrix}
+						\dfrac{1}{\sqrt{2}} \\
+						\dfrac{1}{\sqrt{2}}
+					\end{bmatrix}
+				\end{aligned}
+			\end{equation}
+			
+			\par The Hadamard gate possesses another interesting property: when applied to a quantum bit, it can transform it from a superposition state to a classical bit with measurement, i.e. not triggering the collapse. This property makes the Hadamard gate useful for extracting results from quantum algorithms. Furthermore, the Hadamard gate can also perform the opposite operation: it can convert a classical bit into a superposition state. This allows for computation in the quantum realm, and by applying the Hadamard gate again, the results can be extracted from the superposition state \cite{qcfcs}.\newline
+
+			\par The \textbf{rotation gate} in Equation \ref{eq:rot} rotates the qubit state $\pi$ radians as shown in Equation \ref{eq:rotApplyed}.
+			\begin{equation}
+				\label{eq:rot}
+				Z : 
+				\begin{bmatrix}
+					1& 0 \\
+					0& -1
+				\end{bmatrix}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:rotApplyed}
+				Z|\psi\rangle = \begin{bmatrix}
+					1& 0 \\
+					0& -1
+				\end{bmatrix} . \begin{bmatrix}
+					\alpha \\
+					\beta
+				\end{bmatrix} = \begin{bmatrix}
+					\alpha \\
+					-\beta
+				\end{bmatrix}
+			\end{equation}
+
+			\par The \textbf{CNOT gate} in Equation \ref{eq:cnot} creates an \textbf{entanglement} between two qubits as shown in Equation \ref{eq:cnotApplyed}.
+			\begin{equation}
+				\label{eq:cnot}
+				CNOT : 
+				\begin{bmatrix}
+					1& 0& 0& 0 \\
+					0& 1& 0& 0 \\
+					0& 0& 0& 1 \\
+					0& 0& 1& 0
+				\end{bmatrix}
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:cnotApplyed}
+				Z|\psi\rangle = \begin{bmatrix}
+					1& 0 \\
+					0& -1
+				\end{bmatrix} . \begin{bmatrix}
+					\alpha \\
+					\beta
+				\end{bmatrix} = \begin{bmatrix}
+					\alpha \\
+					-\beta
+				\end{bmatrix}
+			\end{equation}
+
+
+			\par Please note that, as aforementioned, this is just a sample of the possible gates, and that these ones were selected for their relevance according to the judgment of the author.
+
 	\section{Conclusion}
-		\par Quantum mechanics provides a fascinating framework for understanding the behavior of matter and energy at the microscopic level. The concepts of superposition and entanglement, in particular, are crucial for the development of quantum computation. By leveraging these concepts, quantum computers have the potential to solve certain problems much more efficiently than classical computers. By familiarizing ourselves with the basic principles of quantum mechanics, computer scientists can effectively explore and harness the power of quantum computation.
-	
+		\par It is worth noting that all the examples presented in this document intentionally avoided the use of numbers from the complex set $\mathbb{Q}$. This choice was made to facilitate the understanding of the topic. However, if you are interested in delving deeper into the subject, I recommend consulting the provided references and keywords for further reading.
+		
+		\par This said: That's all folks!	
 	\bibliographystyle{plain}
 	\bibliography{references.bib}
 \end{document}

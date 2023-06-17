@@ -8,7 +8,7 @@
    version="1.1"
    id="svg370"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="diracPlot.svg"
+   sodipodi:docname="qubitPlot.svg"
    inkscape:export-filename="diracPlot.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -28,8 +28,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.2551777"
-     inkscape:cx="122.42035"
-     inkscape:cy="122.26675"
+     inkscape:cx="122.72755"
+     inkscape:cy="78.029534"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -86,77 +86,73 @@
        id="g1726">
       <path
          style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker1320);marker-end:url(#TriangleStart)"
-         d="M 53.982918,88.577133 V 123.68765 H 95.656521"
+         d="M 55.041252,88.577133 V 123.68765 H 96.714855"
          id="path545" />
       <path
          style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.529166, 0.529166;stroke-dashoffset:0;stroke-opacity:1"
-         d="m 54.106796,101.65281 h 18.255025 v 22.01413"
+         d="m 55.16513,101.65281 h 18.255025 v 22.01413"
          id="path1372" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Symbol Neu for Powerline';-inkscape-font-specification:'Symbol Neu for Powerline, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
-         x="73.082977"
+         x="74.141312"
          y="100.76575"
          id="text1428"><tspan
            sodipodi:role="line"
            id="tspan1426"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Symbol Neu for Powerline';-inkscape-font-specification:'Symbol Neu for Powerline, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
-           x="73.082977"
+           x="74.141312"
            y="100.76575">ψ</tspan></text>
       <circle
          style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
          id="path1531"
-         cx="72.349022"
+         cx="73.407356"
          cy="101.65922"
          r="0.54498577" />
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="71.046318"
+         x="72.104652"
          y="126.42001"
          id="text1639"><tspan
            sodipodi:role="line"
            id="tspan1637"
            style="stroke-width:0.264583"
-           x="71.046318"
+           x="72.104652"
            y="126.42001">α</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="51.198627"
+         x="52.256962"
          y="102.94693"
          id="text1643"><tspan
            sodipodi:role="line"
            id="tspan1641"
            style="stroke-width:0.264583"
-           x="51.198627"
+           x="52.256962"
            y="102.94693">β</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="93.905869"
-         y="122.36002"
+         x="89.672531"
+         y="121.83086"
          id="text1647"><tspan
            sodipodi:role="line"
            id="tspan1645"
            style="stroke-width:0.264583"
-           x="93.905869"
-           y="122.36002">V<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan1699">1</tspan></tspan></text>
+           x="89.672531"
+           y="121.83086">[0,1]</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="54.374058"
-         y="90.505196"
+         x="55.432392"
+         y="92.092697"
          id="text1703"><tspan
            sodipodi:role="line"
            id="tspan1701"
            style="stroke-width:0.264583"
-           x="54.374058"
-           y="90.505196">V<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan1705">2</tspan></tspan></text>
+           x="55.432392"
+           y="92.092697">[1,0]</tspan></text>
     </g>
   </g>
 </svg>

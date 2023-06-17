@@ -1,0 +1,56 @@
+\begin{frame}
+	\frametitle{Procedimento 01}
+	\framesubtitle{Desempenho}
+	\only<1>{
+		\begin{itemize}
+			\item Em se tratando das bandas críticas, se verificou que BARK apresentou melhor desempenho em quase todas as combinações testadas.
+			\item A combinação \textbf{\textit{wavelet} + Bark} apresentou, em geral, \textbf{melhor} viabilidade do que as respectivas combinações \textbf{\textit{wavelet + Mel}}.
+			\item De todas as possibilidades verificadas a \textbf{\textit{wavelet} haar + Bark} apresentou o melhor desempenho.
+		\end{itemize}
+		
+		\input{tables/results/paraconsistentPlane/distParacomFrom10.tex}
+
+	}
+	\only<2>{
+		\begin{textblock*}{\linewidth}(0.5cm,1.2cm)
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=5.6cm,angle=-90]{../monography/images/results/paraconsistentPlane/ParaconsistentFull.pdf}
+				\caption{Distâncias de P=(G1, G2) ao ponto (1, 0) no plano paraconsistente. M=Mel; B=Bark; Sym=Symlet; Daub=Daubechies; Coif=Coiflet. Para uma melhor visualização, Uma unidade foi somada a cada distância e, a seguir, foi aplicado o $log_{10}$ no resultado correspondente.}
+			\end{figure}
+		\end{textblock*}
+	}
+	
+	\only<3>{		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=5cm,angle=-90,trim=37 0 250 375,clip]{../monography/images/results/paraconsistentPlane/ParaconsistentFull.pdf}
+			\caption{Detalhe: Combinação Bark + Wavelet Haar}
+		\end{figure}
+	}
+	
+	\only<4>{
+		\framesubtitle{Síntese}
+		\begin{columns}
+			\column{0.5\textwidth}
+			\begin{itemize}
+				\item \textbf{Haar} e \textbf{Daubechies 76} proporcionaram, respectivamente, os melhores e os piores resultados associados com a escala Bark.
+				\item Com a escala \textit{Mel}, \textbf{Haar} foi o melhor filtro e \textbf{Daubechies 8} o pior.
+			\end{itemize}
+			
+			\par \textbf{\textit{Wavelet} Haar}
+			\begin{itemize}
+				\item Filtro de ordem 1
+				\item Resposta perfeitamente linear.
+				\item Contaminação por bandas adjacentes.
+				\item Curva de resposta em frequência mais distante da ideal.
+			\end{itemize}
+			
+			\column{0.5\textwidth}
+			\par Portanto, experimentalmente, constatou-se que uma resposta em frequência não-rigorosa associada à uma resposta em fase perfeitamente linear é a melhor alternativa.\newline
+			
+			\par A \textbf{característica ruidosa} dos sinais regravados, contendo, ao contrário das vozes originais, notórios componentes de altas frequências, é melhor detectada com uma escala mais apropriada ao tratamento de áudio em geral e não voz somente.	
+		\end{columns}
+	}
+	
+\end{frame}

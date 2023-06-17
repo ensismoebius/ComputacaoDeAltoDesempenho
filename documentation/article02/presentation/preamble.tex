@@ -1,0 +1,146 @@
+\documentclass[aspectratio=169,xcolor=tex,dvipsnames,table]{beamer}
+
+% Basic packages 
+
+% Absolute position for text and elements
+\usepackage[absolute,overlay]{textpos}
+
+% Enables text replacing
+\usepackage{xstring}
+
+% Enable long tables
+\usepackage{longtable}
+
+% Enable cvs data load
+\usepackage{csvsimple, booktabs}
+
+% Allow more floats whatever it is
+\usepackage{morefloats}
+
+% Use latim special characters
+\usepackage[utf8]{inputenc}
+
+% Use colors
+\usepackage{color}
+
+% Enables landscape pages
+\usepackage{lscape}
+
+% Enables graphics
+\usepackage{graphicx}
+
+% Better text jstification
+\usepackage{microtype}
+
+% Indent the section first paragraph.
+\usepackage{indentfirst}
+
+% Enables code listing
+\usepackage{listings}
+
+% Enables multicolumn text
+\usepackage{multicol}
+
+% Enables math
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Adds some symbols (like slash on a non mathematical context)
+\usepackage{textcomp}
+
+% Enables the use of subfigures
+\usepackage{subfig}
+
+% Float barriers, prevents figures floats accross
+% an determined \FloatBarrier
+\usepackage[section]{placeins}
+
+% Eanbles the use of landscape pages
+\usepackage{lscape}
+\usepackage{pdflscape}
+
+% Quote packages
+% ABNT standard
+\usepackage[alf]{abntex2cite}
+
+% Portuguese-specific commands
+\usepackage[portuguese]{babel}
+
+% Bibliography 
+\usepackage[brazilian,hyperpageref]{backref}
+
+% Drawing and plot packages
+\usepackage{relsize}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{positioning}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{snakes}
+\usetikzlibrary{shapes}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{spy}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{patterns}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepgfplotslibrary{units}
+\pgfplotsset{compat=newest}
+
+% Packages configuration
+
+% Long tables pre and post spacing
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{-30pt}
+
+\setbeamercolor{background canvas}{bg=}
+\setbeamercolor{normal text}{bg=black!20}
+\setbeamercolor{title}{parent=structure,bg=cyan}
+\setbeamercolor{frametitle}{parent=structure,bg=cyan}
+
+% Enables section slides
+\AtBeginSection[]{
+	\begin{frame}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[sep=18pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\insertsectionhead\par
+		\end{beamercolorbox}
+		\vfill
+	\end{frame}
+}
+
+% Code listing settings
+% Translate Listing -> Algoritmo
+\renewcommand{\lstlistingname}{Algoritmo}
+% Translate List of Listings -> Lista de Algoritmos
+\renewcommand{\lstlistlistingname}{Lista de \lstlistingname}
+
+% The code style
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Defines code listing style
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\tiny,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=2pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
