@@ -56,7 +56,7 @@
 			\par The combination of symbols $|$ and $\rangle$ with a value inside is referred to as a "ket." An example is demonstrated in Equation \ref{eq:ketNotationVector}.
 			
 			\begin{equation}
-				|K\rangle = \vec{K} = \begin{bmatrix}
+				\ket{K} = \vec{K} = \begin{bmatrix}
 					a \\
 					b \\
 					c \\
@@ -70,7 +70,7 @@
 			\par In order to describe the state of a particle using the \textbf{vector space basis}, the particle's state can be written using the equation \ref{eq:ketNotationGeneric}.
 			
 			\begin{equation}
-				| \psi \rangle = \alpha . | V_1 \rangle + \beta . | V_2 \rangle
+				\ket{\psi} = \alpha . \ket{V_1} + \beta . \ket{V_2}
 				\label{eq:ketNotationGeneric}
 			\end{equation}
 		
@@ -89,21 +89,21 @@
 			
 			\par To represent multiple-level states, a common approach is to utilize a vector space with a basis that corresponds to the distinct levels of the system. Each level is associated with a specific vector in the vector space.\newline
 			
-			\par For instance, consider a three-level system. We can define a basis as ${|V_0\rangle, |V_1\rangle, |V_2\rangle}$, where $|V_0\rangle$, $|V_1\rangle$, and $|V_2\rangle$ represent the vectors associated with the respective levels.
+			\par For instance, consider a three-level system. We can define a basis as ${\ket{V_0}, \ket{V_1}, \ket{V_2}}$, where $\ket{V_0}$, $\ket{V_1}$, and $\ket{V_2}$ represent the vectors associated with the respective levels.
 			
 			\par In general, a state in a multiple-level system can be expressed as a linear combination of these basis vectors:
 			
 			\begin{equation}
-				|\psi\rangle = \alpha |V_0\rangle + \beta |V_1\rangle + \gamma |V_2\rangle \qquad,
+				\ket{\psi} = \alpha \ket{V_0} + \beta \ket{V_1} + \gamma \ket{V_2} \qquad,
 				\label{eq:multipleLevelState}
 			\end{equation}
 		
 			\par Here, $\alpha$, $\beta$, and $\gamma$ are complex coefficients that determine the \textbf{amplitudes} of the state in each level.\newline
 			
-			\par Being $N=$ the number of levels and $a \in (\alpha, \beta, \gamma, ... , \omega)$ sometimes the equation \ref{eq:multipleLevelState} can be represented as a sum:
+			\par Being $N=$ the number of levels and $a \in (\alpha, \beta, \gamma, \dots , \omega)$ sometimes the equation \ref{eq:multipleLevelState} can be represented as a sum:
 			
 			\begin{equation}
-				|\psi\rangle = \sum_{i=1}^{N} a_i . |V_i\rangle = 
+				\ket{\psi} = \sum_{i=1}^{N} a_i . \ket{V_i}= 
 				\begin{bmatrix}
 					a_{1} \\
 					a_{2} \\
@@ -113,14 +113,14 @@
 				\label{eq:multipleLevelStateSum}
 			\end{equation}
 		
-			\par Some authors prefers to use $|0\rangle, |1\rangle, |2\rangle, \dots , |n\rangle / n < N$ instead of $|V_0\rangle,|V_1\rangle, \dots, |V_n\rangle / n < N$.\newline
+			\par Some authors prefers to use $\ket{0}, \ket{1}, \ket{2}, \dots , \ket{n} / n < N$ instead of $\ket{V_0},\ket{V_1}, \dots, \ket{V_n} / n < N$.\newline
 
 			\par Note that this representation is nothing more than another way of defining a \textbf{vector} considering a \textbf{vector space basis} already used in linear algebra, as shown in Equation \ref{eq:linearCombination}!\newline
 			
 			\begin{equation}
 				\label{eq:linearCombination}
 				\begin{aligned}
-					|\psi\rangle =
+					\ket{\psi} =
 					\begin{bmatrix}
 						a_{1} \\
 						a_{2} \\
@@ -191,11 +191,11 @@
 		\subsection{Bra notation}
 			\label{sec:braNotation}
 			
-			\par Briefly, given a ket $|\psi\rangle$ (as shown in equation \ref{eq:ket}), its corresponding bra is denoted by the conjugate transpose of $|\psi\rangle$ (equation \ref{eq:bra}).
+			\par Briefly, given a ket $\ket{\psi}$ (as shown in equation \ref{eq:ket}), its corresponding bra is denoted by the conjugate transpose of $\ket{\psi}$ (equation \ref{eq:bra}).
 			
 			\begin{equation}
 				\label{eq:ket}
-				|\psi\rangle = 
+				\ket{\psi} = 
 				\begin{bmatrix}
 					u + vo \\
 					k + ji \\
@@ -206,15 +206,15 @@
 		
 			\begin{equation}
 				\label{eq:bra}
-				\langle\psi| = [u - vo, k - ji, o - li, d - mi]
+				\bra{\psi} = [u - vo, k - ji, o - li, d - mi]
 			\end{equation}
 		
 			\par When calculating the probability of a specific state, as discussed in section \ref{sec:probAmpli}, a new question arises: \textit{What if there is a need to calculate the total probability of all possible states?} This is where the "bra" notation comes into play!\newline
 			
-			\par As we already know, a vector of all probability amplitudes, denoted as $|\psi\rangle$, is given by equation \ref{eq:multipleLevelStateKet}. So, for these "ket" states, there is an associated "bra" notation defined in equation \ref{eq:multipleLevelStateBra} \cite{notacaoDirac}
+			\par As we already know, a vector of all probability amplitudes, denoted as $\bra{\psi}$, is given by equation \ref{eq:multipleLevelStateKet}. So, for these "ket" states, there is an associated "bra" notation defined in equation \ref{eq:multipleLevelStateBra} \cite{notacaoDirac}
 			
 			\begin{equation}
-				|\psi\rangle = \sum_{i=1}^{N} a_i . |V_i\rangle = 
+				\ket{\psi} = \sum_{i=1}^{N} a_i . \ket{V_i} = 
 				\begin{bmatrix}
 					a_{1} \\
 					a_{2} \\
@@ -225,7 +225,7 @@
 			\end{equation}
 			
 			\begin{equation}
-				\langle\psi| = \sum_{j=1}^{N} a_j^* . \langle V_j| = [a_1^*, a_2^*, \dots, a_n^*]
+				\bra{\psi} = \sum_{j=1}^{N} a_j^* . \bra{V_j} = [a_1^*, a_2^*, \dots, a_n^*]
 				\label{eq:multipleLevelStateBra}
 			\end{equation}				
 			
@@ -234,7 +234,7 @@
 			
 			\begin{equation}
 				\begin{aligned}
-					\langle\psi|\psi\rangle = [a_1^*, a_2^*, \dots, a_n^*] . \begin{bmatrix}
+					\braket{\psi|\psi} = [a_1^*, a_2^*, \dots, a_n^*] . \begin{bmatrix}
 						a_{1} \\
 						a_{2} \\
 						\vdots \\
@@ -247,17 +247,17 @@
 				\label{eq:multipleLevelStateBraKet}
 			\end{equation}
 		
-			\par Bra notation allows for the calculation of inner products between vectors. The inner product of a bra vector $\langle \psi |$ and a ket vector $| \phi \rangle$ is denoted as $\langle \psi | \phi \rangle$. The inner product yields a complex number, providing information about the similarity or overlap between the two vectors.\newline
+			\par Bra notation allows for the calculation of inner products between vectors. The inner product of a bra vector $\bra{\psi}$ and a ket vector $\ket{\phi}$ is denoted as $\braket{\psi|\phi}$. The inner product yields a complex number, providing information about the similarity or overlap between the two vectors.\newline
 			
 			\par For instance, given a vector 
-				$|\alpha\rangle= 
+				$\ket{\alpha}= 
 				\begin{bmatrix}
 					1 \\
 					0
 				\end{bmatrix}
 				$
 				 and 
-				 $|\beta\rangle = \begin{bmatrix}
+				 $\ket{\beta} = \begin{bmatrix}
 					0\\
 					1
 				\end{bmatrix}$ 
@@ -265,7 +265,7 @@
 			
 			\begin{equation}
 				\label{eq:braket}
-				\langle \alpha | \beta \rangle = 
+				\braket{\alpha|\beta} = 
 				[1, 0] .
 				\begin{bmatrix}
 					0 \\
@@ -304,7 +304,7 @@
 		\par Qubits, unlike classical bits, do not have a defined state and exist in a superposition of states 1 and 0 until they are measured, at which point their state collapses to either 1 or 0 with probabilities given by $|\alpha|^2$ and $|\beta|^2$ respectively, as represented in Equation \ref{eq:qubit} and Figure \ref{fig:qubitplot} \cite{da2018introduccao}.
 		
 		\begin{equation}
-			| \psi \rangle = \alpha . | 0 \rangle + \beta . | 1 \rangle = 
+			\ket{\psi} = \alpha . \ket{0} + \beta . \ket{1} = 
 			\alpha . \begin{bmatrix}
 				1 \\
 				0
@@ -323,11 +323,11 @@
 		$\begin{bmatrix}
 			\alpha \\
 			\beta 
-		\end{bmatrix}$ is the qubit itself and, by convention, $| 1 \rangle = 
+		\end{bmatrix}$ is the qubit itself and, by convention, $\ket{1} = 
 		\begin{bmatrix}
 			0 \\
 			1
-		\end{bmatrix} = 1$ and $| 0 \rangle = 
+		\end{bmatrix} = 1$ and $\ket{0} = 
 		\begin{bmatrix}
 			1 \\
 			0
@@ -340,7 +340,7 @@
 			\label{fig:qubitplot}
 		\end{figure}
 		
-		\par The Equation \ref{eq:qubit} can be interpreted as follows: The \textbf{non-measured} state of $\psi$ within the vector space defined by vectors $| 1 \rangle$ and $| 0 \rangle$ is a linear combination of them  ($\alpha$ times vector $| 0 \rangle$ plus $\beta$ times vector $| 1 \rangle$).\newline
+		\par The Equation \ref{eq:qubit} can be interpreted as follows: The \textbf{non-measured} state of $\psi$ within the vector space defined by vectors $\ket{1}$ and $\ket{0}$ is a linear combination of them  ($\alpha$ times vector $\ket{0}$ plus $\beta$ times vector $\ket{1}$).\newline
 		
 		\par It's important to note that in Figure \ref{fig:qubitplot} and Equation \ref{eq:qubit}, a quantum state is often in a superposition because $\alpha$ and $\beta$ can take on multiple values along the bases axis. For example, if $\alpha = 1$ and $\beta = 0$, the qubit has a $100\%$ probability of being a 0 and $0\%$ probability of being a 1. Conversely, if $\alpha = \frac{1}{\sqrt{2}}$ and $\beta = \frac{1}{\sqrt{2}}$, there is a $50\%$ probability of being 1 and a $50\%$ of being 0.\newline
 		
@@ -404,7 +404,7 @@
 		
 		\subsection{Quantum gates}
 		
-			\par As mentioned earlier, quantum gates are represented as matrices, and their number is infinite because the values of the matrix cells can vary across the real numbers ($\mathbb{R}$). Although there is a wide variety of quantum gates and considering $| \psi \rangle = \alpha . | 0 \rangle + \beta . | 1 \rangle$, here are a few examples.\newline
+			\par As mentioned earlier, quantum gates are represented as matrices, and their number is infinite because the values of the matrix cells can vary across the real numbers ($\mathbb{R}$). Although there is a wide variety of quantum gates and considering $\ket{\psi} = \alpha . \ket{0} + \beta . \ket{1}$, here are a few examples.\newline
 
 		
 			\par The \textbf{identity gate} in Equation \ref{eq:indentity} alters the qubit state as shown in Equation \ref{eq:indentityApplyed}.
@@ -419,7 +419,7 @@
 
 			\begin{equation}
 				\label{eq:indentityApplyed}
-				I|\psi\rangle = \begin{bmatrix}
+				I\ket{\psi} = \begin{bmatrix}
 					1& 0 \\
 					0& 1
 				\end{bmatrix} . \begin{bmatrix}
@@ -428,7 +428,7 @@
 				\end{bmatrix} = \begin{bmatrix}
 					\alpha \\
 					\beta
-				\end{bmatrix} = |\psi\rangle
+				\end{bmatrix} = \ket{\psi}
 			\end{equation}
 		
 			\par The \textbf{flip gate} in Equation \ref{eq:flip} flips the qubit state as shown in Equation \ref{eq:indentityApplyed}.
@@ -443,7 +443,7 @@
 			
 			\begin{equation}
 				\label{eq:flipApplyed}
-				X|\psi\rangle = \begin{bmatrix}
+				X\ket{\psi} = \begin{bmatrix}
 					0& 1 \\
 					1& 0
 				\end{bmatrix} . \begin{bmatrix}
@@ -469,7 +469,7 @@
 			\begin{equation}
 				\label{eq:hadamardApplyed}
 				\begin{aligned}
-					&H|\psi\rangle = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
+					&H\ket{\psi} = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
 						1& 1 \\
 						1& -1
 					\end{bmatrix} . \begin{bmatrix}
@@ -500,7 +500,7 @@
 			\begin{equation}
 				\label{eq:hadamardApplyedNum}
 				\begin{aligned}
-					&H|\psi\rangle = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
+					&H\ket{\psi} = \dfrac{1}{\sqrt{2}}.\begin{bmatrix}
 						1& 1 \\
 						1& -1
 					\end{bmatrix} . \begin{bmatrix}
@@ -544,7 +544,7 @@
 			
 			\begin{equation}
 				\label{eq:rotApplyed}
-				Z|\psi\rangle = \begin{bmatrix}
+				Z\ket{\psi} = \begin{bmatrix}
 					1& 0 \\
 					0& -1
 				\end{bmatrix} . \begin{bmatrix}
