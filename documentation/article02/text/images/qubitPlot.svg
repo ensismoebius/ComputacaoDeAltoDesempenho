@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="48.255238mm"
-   height="39.585117mm"
-   viewBox="0 0 48.255238 39.585117"
+   width="46.512035mm"
+   height="41.673626mm"
+   viewBox="0 0 46.512036 41.673626"
    version="1.1"
    id="svg370"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -28,8 +28,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.2551777"
-     inkscape:cx="122.72755"
-     inkscape:cy="78.029534"
+     inkscape:cx="124.10997"
+     inkscape:cy="77.107926"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -81,7 +81,7 @@
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-51.452627,-87.419098)">
+     transform="translate(-51.142373,-87.637579)">
     <g
        id="g1726">
       <path
@@ -112,35 +112,35 @@
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="72.104652"
-         y="126.42001"
+         x="52.073708"
+         y="102.6038"
          id="text1639"><tspan
            sodipodi:role="line"
            id="tspan1637"
            style="stroke-width:0.264583"
-           x="72.104652"
-           y="126.42001">α</tspan></text>
+           x="52.073708"
+           y="102.6038">α</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="52.256962"
-         y="102.94693"
+         x="72.375854"
+         y="127.41467"
          id="text1643"><tspan
            sodipodi:role="line"
            id="tspan1641"
            style="stroke-width:0.264583"
-           x="52.256962"
-           y="102.94693">β</tspan></text>
+           x="72.375854"
+           y="127.41467">β</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="89.672531"
+         x="89.143364"
          y="121.83086"
          id="text1647"><tspan
            sodipodi:role="line"
            id="tspan1645"
            style="stroke-width:0.264583"
-           x="89.672531"
+           x="89.143364"
            y="121.83086">[0,1]</tspan></text>
       <text
          xml:space="preserve"

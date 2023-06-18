@@ -346,32 +346,32 @@
 		
 		\par One good example of what a qubit can be is a photon. This particle has electric and magnetic components, forming an electric-magnetic field. We can interpret, for instance, the "vertical" component as the state 0 and the "horizontal" component as the state 1, as depicted in Figure \ref{fig:photonstate01}.
 		
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.7\linewidth]{images/photonState01}
+			\includegraphics[width=0.5\linewidth]{images/photonState01}
 			\caption[Qubit state]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
 			\label{fig:photonstate01}
 		\end{figure}
 		
-		\par Note that in Figure \ref{fig:photonstate01}, there is a \textbf{superposition} of states, meaning that both 0 and 1 values can be assumed when the qubit is measured.
+		\par Note that in Figure \ref{fig:photonstate01}, there is a \textbf{superposition} of states, meaning that both 0 and 1 values can be assumed when the qubit is measured.\newline
 		
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.7\linewidth]{images/photonState02}
+			\includegraphics[width=0.5\linewidth]{images/photonState02}
 			\caption[Qubit state 2]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
 			\label{fig:photonstate02}
 		\end{figure}
 		
-		\par Note that in Figure \ref{fig:photonstate02}, there is also a \textbf{superposition}, but here the qubit is more likely to collapse to 0 because of a larger $\alpha$.
+		\par Note that in Figure \ref{fig:photonstate02}, there is also a \textbf{superposition}, but here the qubit state is more likely to collapse to 0 because of a larger $\alpha$.\newline
 		
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.7\linewidth]{images/photonState03}
+			\includegraphics[width=0.5\linewidth]{images/photonState03}
 			\caption[Qubit state 3]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
 			\label{fig:photonstate03}
 		\end{figure}
 		
-		\par Again in Figure \ref{fig:photonstate03}, there is a \textbf{superposition}, but note that here the qubit is more likely to collapse to 1 because of a larger $\beta$.\newline
+		\par Again in Figure \ref{fig:photonstate03}, there is a \textbf{superposition}, but note that here the qubit state is more likely to collapse to 1 because of a larger $\beta$.\newline
 
 		\par Qubits have the ability to store and process information differently than classical bits due to superposition. Their capacity, in terms of information storage, is significantly larger compared to classical bits. However, there is a catch: when qubits are measured, they collapse into classical bits. Therefore, currently, it is not possible to take full advantage of the quantum properties for data storage purposes. Furthermore, qubits can store non-binary data, such as $\begin{bmatrix} \dfrac{1}{\sqrt{2}} \\\\ \dfrac{1}{\sqrt{2}} \end{bmatrix}$ or $\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$.\newline
 		
@@ -398,9 +398,9 @@
 				
 		\par The state vector of a quantum system can undergo various quantum operations, including unitary transformations and measurements. These operations enable the modification of the state vector and the extraction of information from it, facilitating the study of system properties and the prediction of measurement outcomes.\newline
 		
-		\par Quantum operations are implemented using quantum gates, which are represented by unitary matrices. These gates serve as unitary linear transformations that preserve orthogonality, ensuring that the quantum state remains normalized and the probabilities of different outcomes are preserved.\newline
+		\par The Quantum operations gates serve as unitary linear transformations that preserve orthogonality, ensuring that the quantum state remains normalized and the probabilities of different outcomes are preserved.\newline
 		
-		\par To preserve the normalization a property must be observed: Being $M$ a matrix and $M^*$ its conjugate transpose and $I$ an indentity matrix, a matrix $M$ is unitary if $M.M^* = I$ \cite{da2018introduccao}.
+		\par To preserve normalization, quantum gates \textbf{must} satisfy certain conditions. Let $G$ be a matrix representing a quantum gate and $G^*$ its conjugate transpose, and let $I$ be an identity matrix. A gate $G$ must be unitary being $G \cdot G^* = I$ \cite{da2018introduccao}.
 		
 		\subsection{Quantum gates}
 		
@@ -456,7 +456,7 @@
 			\end{equation}
 		
 		
-			\par The \textbf{Hadamard gate} in Equation \ref{eq:hadamard} puts the qubit state in to \textbf{superposition} \cite{qcfcs}  with the same probability for the two states \cite{da2018introduccao} as shown in Equation \ref{eq:hadamardApplyed}.
+			\par The \textbf{Hadamard gate} in Equation \ref{eq:hadamard} puts the qubit state in to \textbf{superposition} \cite{qcfcs}  with the same probability for the two states \cite{da2018introduccao} allowing as shown in Equation \ref{eq:hadamardApplyed}.
 			\begin{equation}
 				\label{eq:hadamard}
 				H : \dfrac{1}{\sqrt{2}}.
@@ -556,7 +556,7 @@
 				\end{bmatrix}
 			\end{equation}
 
-			\par The \textbf{conditional not gate}(CNOT) in Equation \ref{eq:cnot} creates an \textbf{entanglement} between two qubits as shown in Equation \ref{eq:cnotApplyed}.
+			\par The \textbf{conditional not gate}(CNOT) in Equation \ref{eq:cnot} may create an \textbf{entanglement} between two qubits \cite{nielsen2002quantum}.
 			\begin{equation}
 				\label{eq:cnot}
 				CNOT : 
@@ -567,19 +567,52 @@
 					0& 0& 1& 0
 				\end{bmatrix}
 			\end{equation}
+		
+			\par This gate operates on \textbf{two qubits}, where one is the \textbf{control qubit} and the other is the \textbf{target qubit}. To represent the state of the combined qubits, a variation of ket notation is used, where two vectors are represented together. This is necessary because the qubits can no longer be written separately due to the entanglement this gate may cause. The ket variations are shown in Equations \ref{eq:ketForTwoVectors00}, \ref{eq:ketForTwoVectors01} and \ref{eq:ketForTwoVectors02}.
+			
+			\begin{equation}
+				\label{eq:ketForTwoVectors00}
+				\ket{1}, \ket{0} \implies
+				\ket{10} = \begin{bmatrix}
+					0 \\
+					1 \\
+					1 \\
+					0
+				\end{bmatrix}				
+			\end{equation}
+		
+			\begin{equation}
+				\label{eq:ketForTwoVectors01}
+				\ket{0}, \ket{0} \implies
+				\ket{00} = \begin{bmatrix}
+					1 \\
+					0 \\
+					1 \\
+					0
+				\end{bmatrix}				
+			\end{equation}
+			
+			\begin{equation}
+				\label{eq:ketForTwoVectors02}
+				\ket{1}, \ket{1} \implies
+				\ket{11} = \begin{bmatrix}
+					0 \\
+					1 \\
+					0 \\
+					1
+				\end{bmatrix}				
+			\end{equation}
+			
+			\par The CNOT gate operates on two qubits, where the first qubit serves as the control and the second qubit as the target. As shown in the Equation \ref{eq:cnotApplyed}, when the control qubit is in the state $\ket{1}$, the target qubit undergoes a flip. However, when the control qubit is in the state $\ket{0}$, the target qubit remains unchanged.
 			
 			\begin{equation}
 				\label{eq:cnotApplyed}
-				Z|\psi\rangle = \begin{bmatrix}
-					1& 0 \\
-					0& -1
-				\end{bmatrix} . \begin{bmatrix}
-					\alpha \\
-					\beta
-				\end{bmatrix} = \begin{bmatrix}
-					\alpha \\
-					-\beta
-				\end{bmatrix}
+				\begin{aligned}
+					&CNOT\ket{00} = \ket{00}, \\
+					&CNOT\ket{01} = \ket{01}, \\
+					&CNOT\ket{10} = \ket{11}, \\
+					&CNOT\ket{11} = \ket{10}
+				\end{aligned}
 			\end{equation}
 
 

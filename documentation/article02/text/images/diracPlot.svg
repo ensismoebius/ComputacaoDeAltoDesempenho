@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="48.255238mm"
-   height="39.585117mm"
-   viewBox="0 0 48.255238 39.585117"
+   width="46.175724mm"
+   height="40.466686mm"
+   viewBox="0 0 46.175724 40.466686"
    version="1.1"
    id="svg370"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -28,8 +28,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.2551777"
-     inkscape:cx="122.72755"
-     inkscape:cy="78.029534"
+     inkscape:cx="22.733014"
+     inkscape:cy="73.114288"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
      inkscape:window-x="0"
@@ -81,80 +81,80 @@
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-51.452627,-87.419098)">
+     transform="translate(-51.547189,-87.637579)">
     <g
        id="g1726">
       <path
          style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker1320);marker-end:url(#TriangleStart)"
-         d="M 53.982918,88.577133 V 123.68765 H 95.656521"
+         d="M 54.512085,88.577133 V 123.68765 H 96.185688"
          id="path545" />
       <path
          style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.529166, 0.529166;stroke-dashoffset:0;stroke-opacity:1"
-         d="m 54.106796,101.65281 h 18.255025 v 22.01413"
+         d="m 54.635963,101.65281 h 18.255025 v 22.01413"
          id="path1372" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Symbol Neu for Powerline';-inkscape-font-specification:'Symbol Neu for Powerline, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
-         x="73.082977"
+         x="73.612144"
          y="100.76575"
          id="text1428"><tspan
            sodipodi:role="line"
            id="tspan1426"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Symbol Neu for Powerline';-inkscape-font-specification:'Symbol Neu for Powerline, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
-           x="73.082977"
+           x="73.612144"
            y="100.76575">ψ</tspan></text>
       <circle
          style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0"
          id="path1531"
-         cx="72.349022"
+         cx="72.878189"
          cy="101.65922"
          r="0.54498577" />
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="71.046318"
-         y="126.42001"
+         x="51.949356"
+         y="102.65079"
          id="text1639"><tspan
            sodipodi:role="line"
            id="tspan1637"
            style="stroke-width:0.264583"
-           x="71.046318"
-           y="126.42001">α</tspan></text>
+           x="51.949356"
+           y="102.65079">α</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="51.198627"
-         y="102.94693"
+         x="71.832085"
+         y="127.26607"
          id="text1643"><tspan
            sodipodi:role="line"
            id="tspan1641"
            style="stroke-width:0.264583"
-           x="51.198627"
-           y="102.94693">β</tspan></text>
+           x="71.832085"
+           y="127.26607">β</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="93.905869"
-         y="122.36002"
+         x="55.799366"
+         y="91.286003"
          id="text1647"><tspan
            sodipodi:role="line"
            id="tspan1645"
            style="stroke-width:0.264583"
-           x="93.905869"
-           y="122.36002">V<tspan
+           x="55.799366"
+           y="91.286003">V<tspan
    style="font-size:65%;baseline-shift:sub"
    id="tspan1699">1</tspan></tspan></text>
       <text
          xml:space="preserve"
          style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
-         x="54.374058"
-         y="90.505196"
+         x="93.057144"
+         y="120.58892"
          id="text1703"><tspan
            sodipodi:role="line"
            id="tspan1701"
            style="stroke-width:0.264583"
-           x="54.374058"
-           y="90.505196">V<tspan
+           x="93.057144"
+           y="120.58892">V<tspan
    style="font-size:65%;baseline-shift:sub"
    id="tspan1705">2</tspan></tspan></text>
     </g>
