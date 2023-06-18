@@ -342,8 +342,36 @@
 		
 		\par The Equation \ref{eq:qubit} can be interpreted as follows: The \textbf{non-measured} state of $\psi$ within the vector space defined by vectors $| 1 \rangle$ and $| 0 \rangle$ is a linear combination of them  ($\alpha$ times vector $| 0 \rangle$ plus $\beta$ times vector $| 1 \rangle$).\newline
 		
-		\par It's important to note that in Figure \ref{fig:qubitplot} and Equation \ref{eq:qubit}, a quantum state is often in a superposition because $\alpha$ and $\beta$ can take on multiple values along the bases axis. For example, if $\alpha = 1$ and $\beta = 0$, the qubit has a $100\%$ probability of being a 0 and $0\%$ probability of being a 1. Conversely, if $\alpha = \frac{1}{\sqrt{2}}$ and $\beta = \frac{1}{\sqrt{2}}$, there is a $50\%$ probability of being 1 and a $50\%$ of being 0.
-		\newline  
+		\par It's important to note that in Figure \ref{fig:qubitplot} and Equation \ref{eq:qubit}, a quantum state is often in a superposition because $\alpha$ and $\beta$ can take on multiple values along the bases axis. For example, if $\alpha = 1$ and $\beta = 0$, the qubit has a $100\%$ probability of being a 0 and $0\%$ probability of being a 1. Conversely, if $\alpha = \frac{1}{\sqrt{2}}$ and $\beta = \frac{1}{\sqrt{2}}$, there is a $50\%$ probability of being 1 and a $50\%$ of being 0.\newline
+		
+		\par One good example of what a qubit can be is a photon. This particle has electric and magnetic components, forming an electric-magnetic field. We can interpret, for instance, the "vertical" component as the state 0 and the "horizontal" component as the state 1, as depicted in Figure \ref{fig:photonstate01}.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/photonState01}
+			\caption[Qubit state]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
+			\label{fig:photonstate01}
+		\end{figure}
+		
+		\par Note that in Figure \ref{fig:photonstate01}, there is a \textbf{superposition} of states, meaning that both 0 and 1 values can be assumed when the qubit is measured.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/photonState02}
+			\caption[Qubit state 2]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
+			\label{fig:photonstate02}
+		\end{figure}
+		
+		\par Note that in Figure \ref{fig:photonstate02}, there is also a \textbf{superposition}, but here the qubit is more likely to collapse to 0 because of a larger $\alpha$.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/photonState03}
+			\caption[Qubit state 3]{Qubit state: $\alpha$ is the probability of this qubit collapsing to 0, and $\beta$ is the probability of this qubit collapsing to 1.}
+			\label{fig:photonstate03}
+		\end{figure}
+		
+		\par Again in Figure \ref{fig:photonstate03}, there is a \textbf{superposition}, but note that here the qubit is more likely to collapse to 1 because of a larger $\beta$.\newline
 
 		\par Qubits have the ability to store and process information differently than classical bits due to superposition. Their capacity, in terms of information storage, is significantly larger compared to classical bits. However, there is a catch: when qubits are measured, they collapse into classical bits. Therefore, currently, it is not possible to take full advantage of the quantum properties for data storage purposes. Furthermore, qubits can store non-binary data, such as $\begin{bmatrix} \dfrac{1}{\sqrt{2}} \\\\ \dfrac{1}{\sqrt{2}} \end{bmatrix}$ or $\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$.\newline
 		
@@ -528,7 +556,7 @@
 				\end{bmatrix}
 			\end{equation}
 
-			\par The \textbf{CNOT gate} in Equation \ref{eq:cnot} creates an \textbf{entanglement} between two qubits as shown in Equation \ref{eq:cnotApplyed}.
+			\par The \textbf{conditional not gate}(CNOT) in Equation \ref{eq:cnot} creates an \textbf{entanglement} between two qubits as shown in Equation \ref{eq:cnotApplyed}.
 			\begin{equation}
 				\label{eq:cnot}
 				CNOT : 
