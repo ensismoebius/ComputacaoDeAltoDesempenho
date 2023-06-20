@@ -1,1 +1,8 @@
 \babel@toc {portuguese}{}\relax 
+\beamer@sectionintoc {1}{Introdução}{2}{0}{1}
+\beamer@sectionintoc {2}{Espaço vetorial}{4}{0}{2}
+\beamer@sectionintoc {3}{Notação de Dirac e os estados quânticos}{7}{0}{3}
+\beamer@sectionintoc {4}{Estados Quânticos}{11}{0}{4}
+\beamer@sectionintoc {5}{Amplitude de probabilidade}{14}{0}{5}
+\beamer@sectionintoc {6}{Princípio de Heisenberg}{17}{0}{6}
+\beamer@sectionintoc {7}{Qubit ou bit quântico}{20}{0}{7}

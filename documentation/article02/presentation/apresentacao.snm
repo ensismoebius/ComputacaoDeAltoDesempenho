@@ -1,0 +1,16 @@
+\beamer@slide {eq:ketNotationVector}{8}
+\beamer@slide {eq:ketNotationGeneric}{9}
+\beamer@slide {fig:diracPlot}{9}
+\beamer@slide {eq:multipleLevelStateSum}{9}
+\beamer@slide {fig:photonstate01}{13}
+\beamer@slide {eq:state0}{15}
+\beamer@slide {eq:state1}{15}
+\beamer@slide {fig:noisysignal}{18}
+\beamer@slide {fig:windowednoisysignal}{18}
+\beamer@slide {eq:qubit}{21}
+\beamer@slide {fig:photonstate02}{21}
+\beamer@slide {fig:photonstate03}{21}
+\beamer@slide {eq:ketForTwoVectors00}{23}
+\beamer@slide {eq:ketForTwoVectors01}{23}
+\beamer@slide {eq:ketForTwoVectors02}{23}
+\beamer@slide {eq:cnotApplyed}{23}
