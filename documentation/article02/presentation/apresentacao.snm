@@ -10,7 +10,8 @@
 \beamer@slide {eq:qubit}{21}
 \beamer@slide {fig:photonstate02}{21}
 \beamer@slide {fig:photonstate03}{21}
-\beamer@slide {eq:ketForTwoVectors00}{23}
-\beamer@slide {eq:ketForTwoVectors01}{23}
-\beamer@slide {eq:ketForTwoVectors02}{23}
-\beamer@slide {eq:cnotApplyed}{23}
+\beamer@slide {lst:qubits}{21}
+\beamer@slide {eq:ketForTwoVectors00}{24}
+\beamer@slide {eq:ketForTwoVectors01}{24}
+\beamer@slide {eq:ketForTwoVectors02}{24}
+\beamer@slide {eq:cnotApplyed}{24}

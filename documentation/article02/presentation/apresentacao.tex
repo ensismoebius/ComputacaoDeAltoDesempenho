@@ -209,6 +209,23 @@
 		\end{columns}
 		
 		\par Qubits têm a capacidade de armazenar e processar informações de maneira diferente dos bits clássicos devido à superposição. A sua capacidade, em termos de armazenamento de informação, é significativamente maior em comparação com os bits clássicos. No entanto, há um problema: quando os qubits são medidos, eles se transformam em bits clássicos. Portanto, atualmente, não é possível aproveitar ao máximo as propriedades quânticas para fins de armazenamento de dados. Além disso, os qubits podem armazenar dados não binários, como	 $\begin{bmatrix} \dfrac{1}{\sqrt{2}} \\\\ \dfrac{1}{\sqrt{2}} \end{bmatrix}$ or $\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$.
+		
+		\framebreak
+		
+		\par A lista abaixo mostra a capacidade dos qubits em compração com os bits clássicos:
+		
+		\begin{itemize}
+			\label{lst:qubits}
+			\item 1 qubit = 2 bits
+			\item 2 qubits = 4 bits
+			\item 3 qubits = 8 bits (1 byte)
+			\item 4 qubits = 16 bits
+			\item 13 qubits = 8,192 bits (1 kilobyte)
+			\item 23 qubits = 8,388,608 bits (1 megabyte)
+			\item 33 qubits = 8,589,934,592 bits (1 gigabyte)
+			\item 43 qubits = 8,796,093,022,208 bits (1 terabyte)
+			\item n qubits = $2^n$ bits
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}[allowframebreaks]{Portas Quânticas}
@@ -238,7 +255,7 @@
 			\end{bmatrix}$
 		\end{itemize}
 	
-		\par Este portão opera em \textbf{dois qubits}, onde um é o \textbf{qubit de controle} e o outro é o \textbf{target qubit}. Para representar o estado dos qubits combinados, é utilizada uma variação da notação ket, onde dois vetores são representados juntos. Isso é necessário porque os qubits não podem mais ser escritos separadamente devido ao emaranhamento que esse portão pode causar. As variações do ket são mostradas nas Equações \ref{eq:ketForTwoVectors00}, \ref{eq:ketForTwoVectors01} e \ref{eq:ketForTwoVectors02}.
+		\par Esta porta opera em \textbf{dois qubits}, onde um é o \textbf{qubit de controle} e o outro é o \textbf{target qubit}. Para representar o estado dos qubits combinados, é utilizada uma variação da notação ket, onde dois vetores são representados juntos. Isso é necessário porque os qubits não podem mais ser escritos separadamente devido ao emaranhamento que essa porta pode causar. As variações do ket são mostradas nas Equações \ref{eq:ketForTwoVectors00}, \ref{eq:ketForTwoVectors01} e \ref{eq:ketForTwoVectors02}.
 	
 		\begin{equation}
 			\label{eq:ketForTwoVectors00}
@@ -273,7 +290,7 @@
 			\end{bmatrix}				
 		\end{equation}
 		
-		\par O portão CNOT opera em dois qubits, onde o primeiro qubit serve como controle e o segundo qubit como alvo. Conforme mostrado na Equação \ref{eq:cnotApplyed}, quando o qubit de controle está no estado $\ket{1}$, o qubit alvo sofre uma inversão. No entanto, quando o qubit de controle está no estado $\ket{0}$, o qubit de destino permanece inalterado \cite{nielsen2002quantum}.
+		\par A porta CNOT opera em dois qubits, onde o primeiro qubit serve como controle e o segundo qubit como alvo. Conforme mostrado na Equação \ref{eq:cnotApplyed}, quando o qubit de controle está no estado $\ket{1}$, o qubit alvo sofre uma inversão. No entanto, quando o qubit de controle está no estado $\ket{0}$, o qubit de destino permanece inalterado \cite{nielsen2002quantum}.
 		
 		\begin{equation}
 			\label{eq:cnotApplyed}
