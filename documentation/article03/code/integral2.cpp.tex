@@ -1,9 +1,7 @@
 #include <cmath>
-#include <cstddef>
 #include <iomanip>
 #include <iostream>
 #include <mpi.h>
-#include <ostream>
 
 inline long double f(long double x)
 {
@@ -68,7 +66,7 @@ inline void experiment(double lowerLimit, double upperLimit, double interval)
 
 int main(int argc, char *argv[])
 {
-	MPI_Init(NULL, NULL);
+	MPI_Init(&argc, &argv);
 	
 	double lowerLimit = 0, upperLimit = 100;
 	

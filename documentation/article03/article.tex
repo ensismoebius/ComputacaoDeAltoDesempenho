@@ -83,7 +83,9 @@
 			\lstinputlisting[language=C++]{code/integral2.cpp}
 			
 	\section{Discussion}
-		\par This section focus only in the OpenMp directives, its assumed that the reader knows a minimum of C++.\newline
+		\par This section focus only in the OpenMp and Open MPI directives, its assumed that the reader knows a minimum of C++.\newline
+		
+		\subsection{OpenMp discussion}
 		
 		\par The lines 5 to 7 includes OpenMp header files if the build system used detected such library.
 		\begin{lstlisting}[language=C++]
@@ -123,9 +125,94 @@ inline long double f(long double x)
 		\end{lstlisting}
 	
 		\par Among the aforementioned \textbf{operational system ambient variables} one is the most important for the sake of this program: OMP\_NUM\_THREADS. This variable sets the number of threads (an integer) that are going to be used when running the algorithm. If no value is assigned than the maximum of threads supported are used.
+		
+		\subsection{Open MPI}
+		\par On line 4 there is a \textbf{required} include for the Open MPI library.
+		\begin{lstlisting}[language=C++]
+#include <mpi.h>
+		\end{lstlisting}
+	
+		\par From line 6 to 9, the function to be integrated is defined. Note the \textit{inline} statement: Inlinning functions \textbf{may} avoid the intrinsic overhead of calling a function but, since this it is not a command, the compiler may ignore this request.
+		
+		\begin{lstlisting}[language=C++]
+inline long double f(long double x)
+{
+	return std::sqrt(std::pow(100,2) - std::pow(x,2));
+}
+		\end{lstlisting}
+	
+	
+		\par On the nice 69 line there is a command that initializes the MPI environment, including communication channels and resources necessary for running parallel Open MPI programs. The "MPI\_Init" command should be called exactly once per MPI process and has the same arguments as the C++ main function i.e. the program arguments count and the arguments.
+		
+		\begin{lstlisting}[language=C++]
+MPI_Init(&argc, &argv);
+		\end{lstlisting}
+
+
+		\par At line 73 and 74 there is a slot identificantion retrieval. A slot is a resource to make computation (usually an CPU core) locally or remotely available. This slot information will be used in the next lines.
+		
+	\begin{lstlisting}[language=C++]
+int slotId;
+MPI_Comm_rank(MPI_COMM_WORLD, &slotId);
+	\end{lstlisting}
+	
+	\par On line 76 to 78 the intended message is only shown if the process is from slot 0 i.e. the main process.
+	\begin{lstlisting}[language=C++]
+ if (slotId == 0) {
+	std::cout << "Interval \t Partitions \t Time taken \t Result" << std::endl;
+}
+	\end{lstlisting}
+
+	\par The line 51 begins the time measurement.
+	
+	\begin{lstlisting}[language=C++]
+double start_time = MPI_Wtime();
+	\end{lstlisting}
+
+	\par Line 55 and 56 measure time again and calculates the elapsed time respectively.
+	
+	\begin{lstlisting}[language=C++]
+double end_time = MPI_Wtime();
+double elapsed_time = end_time - start_time;
+	\end{lstlisting}
+
+	\par As already explained from lines 58 to 64 it guarantees that the elapsed times outputs only runs on main slot. 
+
+	\begin{lstlisting}[language=C++]
+int rank;
+MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+if (rank == 0) {
+	std::cout << std::fixed << std::setprecision(6) << interval << " \t " << partitions
+	<< " \t " << elapsed_time << " \t " << result << std::endl;
+}
+	\end{lstlisting}
+
+	\par Line 19 creates the slots variables (\textit{slotId} as the current slot/process identification and \textit{slotsAvailable} as the number of available slots). Lines 20 and 21 retrieves these values.
+	
+	\begin{lstlisting}[language=C++]
+int slotId, slotsAvailable;
+MPI_Comm_rank(MPI_COMM_WORLD, &slotId);
+MPI_Comm_size(MPI_COMM_WORLD, &slotsAvailable);
+	\end{lstlisting}
+
+	\par The line 35 aggregates all sums from \textit{localSum} variables across the slots in the \textit{sum} variable.
+	
+	\begin{lstlisting}[language=C++]
+MPI_Reduce(&localSum, &sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+	\end{lstlisting}
+
+	\par Finally at 84 line all resources allocated are freed.
+	\begin{lstlisting}[language=C++]
+MPI_Finalize();
+	\end{lstlisting}
+
+	\par Note that most of the processing is done in lines 31 to 33, and the problem \textbf{must} be partitioned manually in Open MPI, which is different from OpenMP. 
 
 	\section{Performance tests}
 		\par The tests were done using an \textit{AMD Ryzen 5 5000 series} processor running an \textit{Gnu/Linux operational system} with \textit{30GB of RAM}.\newline
+		
+		\subsection{OpenMp performance tests}
 		
 		\par The tables bellow shows the results according to the number of threads. 
 		
@@ -196,10 +283,103 @@ inline long double f(long double x)
 				\end{tabular}
 			\end{center}
 		\end{table}
+
+	\section{Performance tests}
+\par The tests were done using an \textit{AMD Ryzen 5 5000 series} processor running an \textit{Gnu/Linux operational system} with \textit{30GB of RAM}.\newline
+
+\subsection{Open MPI performance tests}
+
+\par In order to change the number of parallel processing units in an Open MPI process, first you need to create a text file that contains the "hosts" and their respective available slots that will be used by Open MPI.  The hosts can be specified using their DNS name or IP address. In this example a file named "hosts.txt" was created.
+
+\begin{lstlisting}
+localhost slots=8
+\end{lstlisting}
+
+\par But it could be like the one bellow:
+
+\begin{lstlisting}
+localhost slots=4
+192.168.0.56 slots=10
+192.168.0.101 slots=7
+\end{lstlisting}
+
+\par When the aforementioned file is created, you can start the processing using the command bellow. Note the use of the "-np" parameter, which represents the number of slots to be used and can be interpreted as the number of threads in Open MPI. If the specified "-np" value is greater than the number of available slots, an error will be raised.
+
+\begin{lstlisting}
+mpirun --hostfile hosts.txt -np 1 ./executable
+\end{lstlisting}
+
+\par The tables bellow shows the results according to the number of slots. 
+
+\begin{table}[h]
+	\caption{mpirun --hostfile hosts.txt -np 1}
+	\begin{center}
+		\centering
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Interval & Partitions & Time taken & Result \\
+			\hline
+			0.000001 & 100000000 & 0.470636 & 7853.981634 \\
+			0.000010 & 10000000 & 0.044703 & 7853.981633 \\
+			0.000100 & 1000000 & 0.004453 & 7853.981617 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[h]
+	\caption{mpirun --hostfile hosts.txt -np 2}
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Interval & Partitions & Time taken & Result \\
+			\hline
+			0.000001 & 100000000 & 0.240130 & 7853.981634 \\
+			0.000010 & 10000000 & 0.022352 & 7853.981633 \\
+			0.000100 & 1000000 & 0.002229 & 7853.981617 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[h]
+	\caption{mpirun --hostfile hosts.txt -np 4}
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Interval & Partitions & Time taken & Result \\
+			\hline
+			0.000001 & 100000000 & 0.136689 & 7853.981634 \\
+			0.000010 & 10000000 & 0.011185 & 7853.981633 \\
+			0.000100 & 1000000 & 0.001120 & 7853.981617 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[h]
+	\caption{lmpirun --hostfile hosts.txt -np 8}
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Interval & Partitions & Time taken & Result \\
+			\hline
+			0.000001 & 100000000 & 0.116957 & 7853.981634 \\
+			0.000010 & 10000000 & 0.009895 & 7853.981633 \\
+			0.000100 & 1000000 & 0.000946 & 7853.981617 \\
+			\hline
+	\end{tabular}
+	\end{center}
+\end{table}
 	
 	\section{Conclusion}
-	\par This is just a scratch on the surface of OpenMp please pay a visit to their website to learn more: \href{https://www.openmp.org/}{https://www.openmp.org/}.
-	\par \textit{That is all folks!}
+		\par The demonstrated example \textbf{does not imply} the superiority of OpenMP over Open MPI because, depending on the problem to be solved and the environment involved, one or the other may be more suitable for the task.
+		
+		\par OpenMP is used when there is a need to utilize most of the local computer's resources for processing. OpenMP programs are simpler to code as well, thanks to the use of \textbf{\#pragma} compiler directives.
+		
+		\par On the other hand, Open MPI is better suited when the problem needs to be divided into larger pieces and processed across multiple machines. However, it requires the programmer to split the problem, resulting in a more complex and error-prone code.
+		
+		\par \textit{That is all folks!}
 	
 	\bibliographystyle{plain}
 	\bibliography{references.bib}
