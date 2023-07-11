@@ -1,23 +1,15 @@
 #include <cmath>
+#include <cstddef>
 #include <iomanip>
 #include <iostream>
 #include <mpi.h>
+#include <ostream>
 
-/*
- * Inlinning functions so the call overhead
- * is avoided
- */
 inline long double f(long double x)
 {
     return std::sqrt(std::pow(100, 2) - std::pow(x, 2));
 }
 
-/*
- * Inlinning the functions so the call overhead
- * is avoided. Note that **inline** it is not a
- * command, the compiler may **ignore** the inline
- * request.
- */
 inline long double integrate(long double (*f)(long double),
                              double lowerLimit,
                              double upperLimit,
@@ -26,13 +18,31 @@ inline long double integrate(long double (*f)(long double),
     double h = (upperLimit - lowerLimit) / partitions;
     long double sum = 0;
 
-    for (int k = 1; k < partitions - 1; k++) {
-        sum += f(lowerLimit + k * h);
+    int slotId, slotsAvailable;
+    MPI_Comm_rank(MPI_COMM_WORLD, &slotId);
+    MPI_Comm_size(MPI_COMM_WORLD, &slotsAvailable);
+
+    int localIterations = (partitions - 2) / slotsAvailable;
+    int remainingIterations = (partitions - 2) % slotsAvailable;
+
+    int start = slotId * localIterations + std::min(slotId, remainingIterations) + 1;
+    int end = start + localIterations + (slotId < remainingIterations ? 1 : 0);
+
+    long double localSum = 0;
+
+    for (int k = start; k < end; k++) {
+        localSum += f(lowerLimit + k * h);
     }
 
-    sum *= 2;
-    sum += (f(lowerLimit) + f(upperLimit));
-    return (h / 2) * sum;
+    MPI_Reduce(&localSum, &sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (slotId == 0) {
+        sum *= 2;
+        sum += (f(lowerLimit) + f(upperLimit));
+        sum *= (h / 2);
+    }
+
+    return sum;
 }
 
 inline void experiment(double lowerLimit, double upperLimit, double interval)
@@ -40,43 +50,32 @@ inline void experiment(double lowerLimit, double upperLimit, double interval)
     long double result = 0;
     int partitions = upperLimit / interval;
 
-    double start = MPI_Wtime();
+    double start_time = MPI_Wtime();
+
     result = integrate(f, lowerLimit, upperLimit, partitions);
-    double end = MPI_Wtime();
 
-    // Calculating total time taken by the program.
-    double timeTaken = end - start;
+    double end_time = MPI_Wtime();
+    double elapsed_time = end_time - start_time;
 
-    int rank, size;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
-
-    long double *allResults = nullptr;
-
-    if (rank == 0) {
-        allResults = new long double[size];
-    }
-
-    MPI_Gather(&result, 1, MPI_LONG_DOUBLE, allResults, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
 
     if (rank == 0) {
         std::cout << std::fixed << std::setprecision(6) << interval << " \t " << partitions
-                  << " \t " << timeTaken << " \t " << allResults[0] << std::endl;
-        delete[] allResults;
+                  << " \t " << elapsed_time << " \t " << result << std::endl;
     }
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    MPI_Init(&argc, &argv);
+    MPI_Init(NULL, NULL);
 
     double lowerLimit = 0, upperLimit = 100;
 
-    int rank, size;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    int slotId;
+    MPI_Comm_rank(MPI_COMM_WORLD, &slotId);
 
-    if (rank == 0) {
+    if (slotId == 0) {
         std::cout << "Interval \t Partitions \t Time taken \t Result" << std::endl;
     }
 
@@ -85,6 +84,5 @@ int main(int argc, char **argv)
     experiment(lowerLimit, upperLimit, 0.0001);
 
     MPI_Finalize();
-
     return 0;
 }
