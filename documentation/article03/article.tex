@@ -126,7 +126,7 @@ inline long double f(long double x)
 	
 		\par Among the aforementioned \textbf{operational system ambient variables} one is the most important for the sake of this program: OMP\_NUM\_THREADS. This variable sets the number of threads (an integer) that are going to be used when running the algorithm. If no value is assigned than the maximum of threads supported are used.
 		
-		\subsection{Open MPI}
+		\subsection{Open MPI discussion}
 		\par On line 4 there is a \textbf{required} include for the Open MPI library.
 		\begin{lstlisting}[language=C++]
 #include <mpi.h>
@@ -373,11 +373,13 @@ mpirun --hostfile hosts.txt -np 1 ./executable
 \end{table}
 	
 	\section{Conclusion}
-		\par The demonstrated example \textbf{does not imply} the superiority of OpenMP over Open MPI because, depending on the problem to be solved and the environment involved, one or the other may be more suitable for the task.
+		\par The demonstrated example \textbf{does not imply} the superiority of OpenMP over Open MPI or the other way around because, depending on the problem to be solved and the environment involved, one or the other may be more suitable for the task.
 		
 		\par OpenMP is used when there is a need to utilize most of the local computer's resources for processing. OpenMP programs are simpler to code as well, thanks to the use of \textbf{\#pragma} compiler directives.
 		
 		\par On the other hand, Open MPI is better suited when the problem needs to be divided into larger pieces and processed across multiple machines. However, it requires the programmer to split the problem, resulting in a more complex and error-prone code.
+		
+		\par Hope it helps and, for more information, please consult the references.\newline
 		
 		\par \textit{That is all folks!}
 	
